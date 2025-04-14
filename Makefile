@@ -6,7 +6,7 @@ OBJS = $(SRCS:.c=.o)
 
 SCRS = #nothing yet
 
-INCLUDES = -I include ./libft/libift.a -Iminilibx-linux -Lminilibx-linux -lmlx -lXext -lX11 -lm -lbsd
+INCLUDES = -I include ./libft/libft.a -Iminilibx-linux -Lminilibx-linux -lmlx -lXext -lX11 -lm -lbsd
 
 CC = cc
 
