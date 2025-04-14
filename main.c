@@ -21,5 +21,6 @@ int main(int ac, char **av)
     // -->[no importa]create the mlx pointers
     // --> [aurodrig] do the game logic
     // --> [no importa] free the game
+
     return (0);
 }
