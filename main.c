@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:51:17 by layala-s          #+#    #+#             */
-/*   Updated: 2025/04/17 16:18:50 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:04:29 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int	main(int ac, char **av)
 	game->plane_y = 0;
 
 	// Inicializa todo
-	init_mlx(game);
+	// init_mlx(game);
+	start_game(game);
 
 	// 🔑 Hooks de teclado
 	mlx_hook(game->mlx_win, 2, 1L<<0, handle_key_press, game);     // keydown
     mlx_hook(game->mlx_win, 3, 1L<<1, handle_key_release, game);   // keyup
 
 	// 🚀 Arrancar el juego
-	start_game(game);
 
 	free(game);
 	return (0);

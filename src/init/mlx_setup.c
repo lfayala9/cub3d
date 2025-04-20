@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_setup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 16:54:24 by aurodrig          #+#    #+#             */
+/*   Updated: 2025/04/20 17:03:52 by aurodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 void init_mlx(t_game *game)
@@ -12,12 +24,12 @@ void init_mlx(t_game *game)
         exit(1);
     }
 
-    game->mlx_win = mlx_new_window(
-        game->mlx_ptr,
-        game->win_width,
-        game->win_height,
-        "cub3D"
-    );
+    // game->mlx_win = mlx_new_window(
+    //     game->mlx_ptr,
+    //     game->win_width,
+    //     game->win_height,
+    //     "cub3D"
+    // );
     if (!game->mlx_win)
     {
         ft_putendl_fd("Error\nWindow creation failed", 2);
