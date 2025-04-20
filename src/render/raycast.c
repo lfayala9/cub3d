@@ -1,19 +1,18 @@
 #include "../../cub3d.h"
 
 
-void	draw_vertical_line(t_game *game, int x, int y0, int y1, int color)
+void	draw_vertical_line(t_game *game, int x, int y0, int y1)
 {
-	int y;
+	int	y;
 
 	if (y0 < 0)
 		y0 = 0;
 	if (y1 >= game->win_height)
 		y1 = game->win_height - 1;
-
 	y = y0;
 	while (y <= y1)
 	{
-		mlx_pixel_put(game->mlx_ptr, game->mlx_win, x, y, color);
+		mlx_pixel_put(game->mlx_ptr, game->mlx_win, x, y, game->color);
 		y++;
 	}
 }
@@ -129,13 +128,16 @@ void	raycast(t_game *game)
 			draw_end = game->win_height - 1;
 
 		// 🔵 Techo
-		draw_vertical_line(game, x, 0, draw_start - 1, 0x3333FF); // Azul
+		game->color = 0x3333FF;
+		draw_vertical_line(game, x, 0, draw_start - 1);
 
 		// 🟩 Pared
-		draw_vertical_line(game, x, draw_start, draw_end, 0x00FF00); // Verde
+		game->color = 0x00FF00;
+		draw_vertical_line(game, x, draw_start, draw_end);
 
 		// 🟫 Suelo
-		draw_vertical_line(game, x, draw_end + 1, game->win_height - 1, 0x996633); // Marrón
+		game->color = 0x996633;
+		draw_vertical_line(game, x, draw_end + 1, game->win_height - 1);
 
 		x++;
 	}

@@ -26,8 +26,8 @@ int	game_loop(t_game *game)
 // 🧨 Esta arranca la ventana y entra al loop
 void	start_game(t_game *game)
 {
-	game->win_width = 2560;
-	game->win_height = 1440;
+	game->win_width = WIN_WIDTH;
+	game->win_height = WIN_HEIGHT;
 
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)

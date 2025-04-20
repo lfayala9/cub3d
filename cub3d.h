@@ -15,21 +15,20 @@
 
 /*INCLUDES*/
 
-# include "./libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include <math.h> 
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <X11/keysym.h> // 🔑 Esto es importante para usar XK_w, XK_s, etc
-#include <math.h> 
+# include "./libft/libft.h"
+# include "minilibx-linux/mlx.h"
 
-# define WIN_WIDTH 640
-# define WIN_HEIGHT 480
-#define MAX_KEYS 70000
-// Puedes definirlo tú mismo si no lo está haciendo X11/keysym.h
-#define KEY_LEFT 65361
-#define KEY_RIGHT 65363
-
+# define KEY_RIGHT 65363
+# define KEY_LEFT 65361
+# define MAX_KEYS 70000
+/*WIDOW SIZE*/
+# define WIN_WIDTH 960
+# define WIN_HEIGHT 720
 
 /*STRUCTS*/
 
@@ -37,29 +36,28 @@ typedef struct s_game
 {
 	void	*mlx_ptr;
 	void	*mlx_win;
-	int		win_width;
+	int		keys[MAX_KEYS]; // 🔑 Estado de teclas presionadas
 	int		win_height;
+	int		color;
+	int		win_width;
 	char	**map;
-
 	double	player_x;
 	double	player_y;
-	double	dir_x;
-	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-
-	int		keys[MAX_KEYS]; // 🔑 Estado de teclas presionadas
+	double	dir_x;
+	double	dir_y;
 }	t_game;
 
 /*FUNCTIONS*/
 
-void	init_mlx(t_game *game);
-int		draw_frame(t_game *game);
 void	raycast(t_game *game);
-void	draw_vertical_line(t_game *game, int x, int y0, int y1, int color);
-double	ft_abs(double x);
+void	init_mlx(t_game *game);
+void	handle_input(t_game *game);
+void	draw_vertical_line(t_game *game, int x, int y0, int y1);
+int		draw_frame(t_game *game);
 int		handle_key_press(int keycode, t_game *game);
 int		handle_key_release(int keycode, t_game *game);
-void	handle_input(t_game *game);
+double	ft_abs(double x);
 
 #endif
