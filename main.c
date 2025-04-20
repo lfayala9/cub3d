@@ -44,8 +44,6 @@ int	main(int ac, char **av)
 	mlx_hook(game->mlx_win, 2, 1L<<0, handle_key_press, game);     // keydown
     mlx_hook(game->mlx_win, 3, 1L<<1, handle_key_release, game);   // keyup
 
-	// 🚀 Arrancar el juego
-
 	free(game);
 	return (0);
 }
