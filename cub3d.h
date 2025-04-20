@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:32 by layala-s          #+#    #+#             */
-/*   Updated: 2025/04/17 18:23:03 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:03:05 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_game
 
 /*FUNCTIONS*/
 
-//void	init_mlx(t_game *game);
+void	init_mlx(t_game *game);
 int		draw_frame(t_game *game);
 void	raycast(t_game *game);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1, int color);

@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/20 16:51:33 by aurodrig          #+#    #+#             */
+/*   Updated: 2025/04/20 17:05:22 by aurodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include "../../cub3d.h"
 
 // ⚙️ Esta función se llama constantemente por mlx_loop_hook
@@ -12,8 +26,8 @@ int	game_loop(t_game *game)
 // 🧨 Esta arranca la ventana y entra al loop
 void	start_game(t_game *game)
 {
-	game->win_width = 640;
-	game->win_height = 480;
+	game->win_width = 2560;
+	game->win_height = 1440;
 
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
@@ -30,4 +44,3 @@ void	start_game(t_game *game)
 	mlx_loop_hook(game->mlx_ptr, game_loop, game);
 	mlx_loop(game->mlx_ptr);
 }
-
