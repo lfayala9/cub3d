@@ -54,6 +54,8 @@ typedef struct s_game
 void	raycast(t_game *game);
 void	init_mlx(t_game *game);
 void	handle_input(t_game *game);
+char **mock_map(void);
+void	start_game(t_game *game);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);
 int		check_input(int ac, char **av);

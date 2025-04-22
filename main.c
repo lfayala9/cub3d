@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 {
 	t_game	*game;
 
-	if (!check_input(ac, av))
+	if (check_input(ac, av) != 0)
 		exit(EXIT_FAILURE);
 	game = malloc(sizeof(t_game));
 	if (!game)
