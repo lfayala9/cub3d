@@ -16,11 +16,8 @@ int	main(int ac, char **av)
 {
 	t_game	*game;
 
-	if (ac != 2)
-	{
-		ft_putendl_fd("Error\nUsage: ./cub3d <map_file.cub>", 2);
-		return (1);
-	}
+	if (!check_input(ac, av))
+		exit(EXIT_FAILURE);
 	game = malloc(sizeof(t_game));
 	if (!game)
 	{

@@ -5,6 +5,7 @@ FLAGS = -Wall -Wextra -Werror
 SRCS = main.c \
 src/init/mock_map.c \
 src/init/mlx_setup.c \
+src/parse/check_input.c \
 src/render/draw_frame.c \
 src/render/raycast.c \
 src/game/start_game.c \
@@ -21,7 +22,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C libft
 	@make -C minilibx-linux
-	$(CC) $(OBJS) $(INCLUDES) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(INCLUDES) -o $(NAME)
 
 clean:
 	@make clean -C libft

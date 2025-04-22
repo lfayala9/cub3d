@@ -56,6 +56,7 @@ void	init_mlx(t_game *game);
 void	handle_input(t_game *game);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);
+int		check_input(int ac, char **av);
 int		handle_key_press(int keycode, t_game *game);
 int		handle_key_release(int keycode, t_game *game);
 double	ft_abs(double x);
