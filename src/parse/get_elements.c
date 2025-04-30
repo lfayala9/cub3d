@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_elements.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/30 16:57:51 by layala-s          #+#    #+#             */
+/*   Updated: 2025/04/30 16:57:52 by layala-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 int	empty_line(char *line)
@@ -5,7 +17,7 @@ int	empty_line(char *line)
 	int	i;
 
 	i = 0;
-	while(line[i] != '\n' && line[i])
+	while (line[i] != '\n' && line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\t')
 			return (0);
@@ -84,7 +96,7 @@ void	get_elements(t_game *g, char *file)
 		if (empty_line(buffer))
 		{
 			free(buffer);
-			continue;
+			continue ;
 		}
 		g->elements[count] = clean_string(buffer);
 		free(buffer);

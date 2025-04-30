@@ -38,7 +38,7 @@ fclean:
 	@rm -rf $(NAME)
 
 norme:
-	norminette main.c cub3d.h srcs libft
+	norminette main.c cub3d.h src libft
 
 re: fclean all
 

@@ -33,7 +33,7 @@
 
 /*STRUCTS*/
 
-typedef	struct s_element
+typedef struct s_element
 {
 	char	*no_tx;
 	char	*so_tx;
@@ -45,20 +45,20 @@ typedef	struct s_element
 
 typedef struct s_game
 {
-	void	*mlx_ptr;
-	void	*mlx_win;
-	int		keys[MAX_KEYS]; // 🔑 Estado de teclas presionadas
-	int		win_height;
-	int		color;
-	int		win_width;
-	char	**map;
-	char	**elements;
-	double	player_x;
-	double	player_y;
-	double	plane_x;
-	double	plane_y;
-	double	dir_x;
-	double	dir_y;
+	void		*mlx_ptr;
+	void		*mlx_win;
+	int			keys[MAX_KEYS]; // 🔑 Estado de teclas presionadas
+	int			win_height;
+	int			color;
+	int			win_width;
+	char		**map;
+	char		**elements;
+	double		player_x;
+	double		player_y;
+	double		plane_x;
+	double		plane_y;
+	double		dir_x;
+	double		dir_y;
 	t_element	*e;
 }	t_game;
 
@@ -70,7 +70,7 @@ void	handle_input(t_game *game);
 void	get_elements(t_game *g, char *file);
 void	copy_str(char *dest, char*src, int n);
 void	init_elements(char **str, char *element, int n);
-char **mock_map(void);
+char	**mock_map(void);
 void	start_game(t_game *game);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);

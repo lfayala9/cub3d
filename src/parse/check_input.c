@@ -26,17 +26,17 @@ int	check_extension(char *filename, char *extension)
 	return (0);
 }
 
-int check_input(int ac, char **av)
+int	check_input(int ac, char **av)
 {
-    if (ac != 2)
+	if (ac != 2)
 	{
 		write(2, "Error\nUsage: ./cub3d <map_file.cub>", 36);
 		exit(EXIT_FAILURE);
 	}
-    else if (!check_extension(av[1], ".cub"))
-    {
-        write(2, "Error: File extension should be .cub", 37);
-        exit(EXIT_FAILURE);
-    }
-    return (0);
+	else if (!check_extension(av[1], ".cub"))
+	{
+		write(2, "Error: File extension should be .cub", 37);
+		exit(EXIT_FAILURE);
+	}
+	return (0);
 }
