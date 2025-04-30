@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <X11/keysym.h> // 🔑 Esto es importante para usar XK_w, XK_s, etc
 # include "./libft/libft.h"
 # include "minilibx-linux/mlx.h"
@@ -32,21 +33,33 @@
 
 /*STRUCTS*/
 
+typedef struct s_element
+{
+	char	*no_tx;
+	char	*so_tx;
+	char	*ea_tx;
+	char	*we_tx;
+	char	*c_rgb;
+	char	*f_rgb;
+}	t_element;
+
 typedef struct s_game
 {
-	void	*mlx_ptr;
-	void	*mlx_win;
-	int		keys[MAX_KEYS]; // 🔑 Estado de teclas presionadas
-	int		win_height;
-	int		color;
-	int		win_width;
-	char	**map;
-	double	player_x;
-	double	player_y;
-	double	plane_x;
-	double	plane_y;
-	double	dir_x;
-	double	dir_y;
+	void		*mlx_ptr;
+	void		*mlx_win;
+	int			keys[MAX_KEYS]; // 🔑 Estado de teclas presionadas
+	int			win_height;
+	int			color;
+	int			win_width;
+	char		**map;
+	char		**elements;
+	double		player_x;
+	double		player_y;
+	double		plane_x;
+	double		plane_y;
+	double		dir_x;
+	double		dir_y;
+	t_element	*e;
 }	t_game;
 
 /*FUNCTIONS*/
@@ -54,12 +67,16 @@ typedef struct s_game
 void	raycast(t_game *game);
 void	init_mlx(t_game *game);
 void	handle_input(t_game *game);
-char **mock_map(void);
+void	get_elements(t_game *g, char *file);
+void	copy_str(char *dest, char*src, int n);
+void	init_elements(char **str, char *element, int n);
+char	**mock_map(void);
 void	start_game(t_game *game);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);
 int		check_input(int ac, char **av);
 int		handle_key_press(int keycode, t_game *game);
+int		parse_data(t_game *g, char *file);
 int		handle_key_release(int keycode, t_game *game);
 double	ft_abs(double x);
 

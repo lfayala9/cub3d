@@ -6,6 +6,8 @@ SRCS = main.c \
 src/init/mock_map.c \
 src/init/mlx_setup.c \
 src/parse/check_input.c \
+src/parse/get_elements.c \
+src/parse/parsing.c \
 src/render/draw_frame.c \
 src/render/raycast.c \
 src/game/start_game.c \
@@ -36,7 +38,7 @@ fclean:
 	@rm -rf $(NAME)
 
 norme:
-	norminette main.c cub3d.h srcs libft
+	norminette main.c cub3d.h src libft
 
 re: fclean all
 

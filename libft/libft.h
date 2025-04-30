@@ -6,7 +6,7 @@
 /*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:21:45 by layala-s          #+#    #+#             */
-/*   Updated: 2024/04/04 20:20:39 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:52:53 by layala-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		is_space(char c);
 int		ft_isdigit(int num);
 int		ft_atoi(const char *string);
 int64_t	ft_atoll(const char *string);
@@ -62,6 +63,7 @@ int		ft_putpoint(void *pointer);
 int		ft_putnbr(int nb);
 void	*ft_realloc(void *ptr, size_t size);
 int		ft_putuns(unsigned int nb);
+char	*ft_strcpy(char *s1, char *s2);
 int		ft_puthex(unsigned int nb, char c);
 int		ft_printf(char const *s, ...);
 size_t	gnl_ft_strlen(const char *c);
