@@ -73,6 +73,7 @@ void	exit_error(char *msg, int code_free, t_game *g);
 void	init_elements(char **str, char *element, int n, t_game *g);
 char	**mock_map(void);
 void	start_game(t_game *game);
+void	get_map(t_game *g, char **copy);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);
 int		check_input(int ac, char **av);

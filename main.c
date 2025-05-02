@@ -47,7 +47,7 @@ void	init_elements(char **str, char *element, int n, t_game *g)
 	copy_str(*str, element, n);
 	check_element_value(s, n, g);
 }
-t_game	*init_game(t_game *game)
+t_game	*init_struct(t_game *game)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ t_game	*init_game(t_game *game)
 	game->elements = malloc(sizeof(char *) * 6);
 	while (i < 6)
 		game->elements[i++] = 0;
-	game->map = mock_map();
+	// game->map = mock_map();
 	game->e->ea_tx = NULL;
     game->e->we_tx = NULL;
     game->e->so_tx = NULL;
@@ -76,16 +76,45 @@ t_game	*init_game(t_game *game)
 	return (game->plane_y = 0 ,game);
 }
 
+
+char	**copy_file(const char *filename)
+{
+	int		fd;
+	int		line_count = 0;
+	char	*line;
+	char	**temp = malloc(sizeof(char *) * 1024); // Ajusta si quieres tamaño dinámico
+
+	if (!temp)
+		return (NULL);
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error al abrir el archivo");
+		return (NULL);
+	}
+	while ((line = get_next_line(fd)))
+	{
+		temp[line_count++] = line; // No hacer strdup, gnl ya devuelve malloc
+	}
+	temp[line_count] = NULL;
+	close(fd);
+	return (temp);
+}
+
 int	main(int ac, char **av)
 {
 	t_game	*game;
+	char	**temp;
 
 	if (check_input(ac, av) != 0)
 		exit(EXIT_FAILURE);
-	game = init_game(game);
+	game = init_struct(game);
 	if (!game)
 		return (1);
+	temp = copy_file(av[1]);
 	parse_data(game, av[1]);
+	get_map(game, temp);
 	start_game(game);
 	free_game(game);
 	return (0);
