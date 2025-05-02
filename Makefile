@@ -4,6 +4,7 @@ FLAGS = -Wall -Wextra -Werror
 
 SRCS = main.c \
 src/init/mock_map.c \
+src/utils.c \
 src/init/mlx_setup.c \
 src/parse/check_input.c \
 src/parse/get_elements.c \

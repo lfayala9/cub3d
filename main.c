@@ -12,12 +12,68 @@
 
 #include "cub3d.h"
 
-void	init_elements(char **str, char *element, int n)
+void	check_element_value(char *s, int n, t_game *g)
 {
+	int	i;
+
+	i = 0;
+	if (n == 3)
+	{
+		if (!check_extension(s, ".xpm"))
+			exit_error("Error: texture file should be <texture_path.xpm>", \
+			1, g);
+	}
+	if (n == 2)
+	{
+		while (s[i])
+		{
+			if (s[i] == '-')
+				exit_error("Error: RGB should have positive numeric values", \
+				1, g);
+			i++;
+		}
+	}
+}
+
+void	init_elements(char **str, char *element, int n, t_game *g)
+{
+	char	*s;
+	int		i;
+
 	*str = malloc(ft_strlen(element) + 1);
 	if (!(*str))
 		return ;
+	s = *str;
 	copy_str(*str, element, n);
+	check_element_value(s, n, g);
+}
+t_game	*init_game(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (NULL);
+	game->e = malloc(sizeof(t_element));
+	if (!game->e)
+		return (NULL);
+	game->elements = malloc(sizeof(char *) * 6);
+	while (i < 6)
+		game->elements[i++] = 0;
+	game->map = mock_map();
+	game->e->ea_tx = NULL;
+    game->e->we_tx = NULL;
+    game->e->so_tx = NULL;
+    game->e->no_tx = NULL;
+    game->e->c_rgb = NULL;
+    game->e->f_rgb = NULL;
+	game->player_x = 4.5;
+	game->player_y = 5.5;
+	game->dir_x = 0;
+	game->dir_y = -1;
+	game->plane_x = 0.66;
+	return (game->plane_y = 0 ,game);
 }
 
 int	main(int ac, char **av)
@@ -26,31 +82,12 @@ int	main(int ac, char **av)
 
 	if (check_input(ac, av) != 0)
 		exit(EXIT_FAILURE);
-	game = malloc(sizeof(t_game));
+	game = init_game(game);
 	if (!game)
 		return (1);
-	game->e = malloc(sizeof(t_element));
-	if (!game->e)
-		return (1);
-	game->elements = malloc(sizeof(char *) * 6);
 	parse_data(game, av[1]);
-	game->map = mock_map(); // o tu parseo real si ya lo tienes
-	game->player_x = 4.5;
-	game->player_y = 5.5;
-	game->dir_x = 0;
-	game->dir_y = -1;
-	game->plane_x = 0.66;
-	game->plane_y = 0;
-
-	// Inicializa todo
-	// init_mlx(game);
 	start_game(game);
-
-	// 🔑 Hooks de teclado
-	mlx_hook(game->mlx_win, 2, 1L<<0, handle_key_press, game);     // keydown
-    mlx_hook(game->mlx_win, 3, 1L<<1, handle_key_release, game);   // keyup
-
-	free(game);
+	free_game(game);
 	return (0);
 }
 
