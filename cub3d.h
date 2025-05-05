@@ -77,6 +77,7 @@ void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);
 int		check_input(int ac, char **av);
 int		handle_key_press(int keycode, t_game *game);
+void    validate_map(t_game *g);
 int		parse_data(t_game *g, char *file);
 int		handle_key_release(int keycode, t_game *game);
 void	get_position(t_game *g);
