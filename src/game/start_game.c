@@ -10,20 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "../../cub3d.h"
 
-// ⚙️ Esta función se llama constantemente por mlx_loop_hook
 int	game_loop(t_game *game)
 {
-	handle_input(game);   // 🕹️ Detectar teclas
-	raycast(game);        // 👁️ Dibujar escena
+	handle_input(game);
+	raycast(game);
 	return (0);
 }
 
+void	free_game(t_game *g)
+{
+	int	i;
 
-// 🧨 Esta arranca la ventana y entra al loop
+	i = 0;
+	free(g->e->ea_tx);
+	free(g->e->we_tx);
+	free(g->e->so_tx);
+	free(g->e->no_tx);
+	free(g->e->c_rgb);
+	free(g->e->f_rgb);
+	free(g->e);
+	while (i < 6)
+	{
+		free(g->elements[i]);
+		i++;
+	}
+	i = 0;
+	// while (g->map[i])
+	// 	free(g->map[i++]);
+	free(g->elements);
+	free(g);
+}
+
+int	exit_game(t_game *game)
+{
+	mlx_destroy_window(game->mlx_ptr, game->mlx_win);
+	printf("You Left");
+	free_game(game);
+	exit(EXIT_SUCCESS);
+}
+
 void	start_game(t_game *game)
 {
 	game->win_width = WIN_WIDTH;
@@ -35,12 +62,9 @@ void	start_game(t_game *game)
 	game->mlx_win = mlx_new_window(game->mlx_ptr, game->win_width, game->win_height, "cub3D");
 	if (!game->mlx_win)
 		exit(1);
-
-	// 🧠 Hook de teclas
-	mlx_hook(game->mlx_win, 2, 1L << 0, handle_key_press, game);   // key down
-	mlx_hook(game->mlx_win, 3, 1L << 1, handle_key_release, game); // key up
-
-	// 🔁 Bucle principal
+	mlx_hook(game->mlx_win, 2, 1L << 0, handle_key_press, game);
+	mlx_hook(game->mlx_win, 3, 1L << 1, handle_key_release, game);
+	mlx_hook(game->mlx_win, 17, 1L << 2, exit_game, game);
 	mlx_loop_hook(game->mlx_ptr, game_loop, game);
 	mlx_loop(game->mlx_ptr);
 }

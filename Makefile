@@ -3,11 +3,13 @@ NAME = cub3D
 FLAGS = -Wall -Wextra -Werror
 
 SRCS = main.c \
+src/utils.c \
 src/init/mock_map.c \
 src/init/mlx_setup.c \
 src/parse/check_input.c \
 src/parse/get_elements.c \
 src/parse/parsing.c \
+src/parse/get_map.c \
 src/render/draw_frame.c \
 src/render/raycast.c \
 src/game/start_game.c \

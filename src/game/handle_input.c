@@ -12,91 +12,47 @@
 
 #include "../../cub3d.h"
 
-void	handle_input(t_game *game)
+static void	move(t_game *g, double dx, double dy)
 {
-	// 🔼 Adelante (W)
-	if (game->keys[XK_w])
-	{
-		double new_x = game->player_x + game->dir_x * 0.05;
-		double new_y = game->player_y + game->dir_y * 0.05;
+	double new_x = g->player_x + dx;
+	double new_y = g->player_y + dy;
 
-		if (game->map[(int)new_y][(int)game->player_x] != '1')
-			game->player_y = new_y;
-		if (game->map[(int)game->player_y][(int)new_x] != '1')
-			game->player_x = new_x;
-	}
-
-	// 🔽 Atrás (S)
-	if (game->keys[XK_s])
-	{
-		double new_x = game->player_x - game->dir_x * 0.05;
-		double new_y = game->player_y - game->dir_y * 0.05;
-
-		if (game->map[(int)new_y][(int)game->player_x] != '1')
-			game->player_y = new_y;
-		if (game->map[(int)game->player_y][(int)new_x] != '1')
-			game->player_x = new_x;
-	}
-
-	// ⬅️ Strafe izquierda (A)
-	if (game->keys[XK_a])
-	{
-		double new_x = game->player_x - game->plane_x * 0.05;
-		double new_y = game->player_y - game->plane_y * 0.05;
-
-		if (game->map[(int)new_y][(int)game->player_x] != '1')
-			game->player_y = new_y;
-		if (game->map[(int)game->player_y][(int)new_x] != '1')
-			game->player_x = new_x;
-	}
-
-	// ➡️ Strafe derecha (D)
-	if (game->keys[XK_d])
-	{
-		double new_x = game->player_x + game->plane_x * 0.05;
-		double new_y = game->player_y + game->plane_y * 0.05;
-
-		if (game->map[(int)new_y][(int)game->player_x] != '1')
-			game->player_y = new_y;
-		if (game->map[(int)game->player_y][(int)new_x] != '1')
-			game->player_x = new_x;
-	}
-
-    	// 🔄 Rotar a la izquierda
-	if (game->keys[XK_Right])
-	{
-		double old_dir_x = game->dir_x;
-		double old_plane_x = game->plane_x;
-		double rot_speed = 0.05;
-
-		game->dir_x = game->dir_x * cos(rot_speed) - game->dir_y * sin(rot_speed);
-		game->dir_y = old_dir_x * sin(rot_speed) + game->dir_y * cos(rot_speed);
-
-		game->plane_x = game->plane_x * cos(rot_speed) - game->plane_y * sin(rot_speed);
-		game->plane_y = old_plane_x * sin(rot_speed) + game->plane_y * cos(rot_speed);
-	}
-
-	// 🔄 Rotar a la derecha
-	if (game->keys[XK_Left])
-	{
-		double old_dir_x = game->dir_x;
-		double old_plane_x = game->plane_x;
-		double rot_speed = -0.05; // nota el signo negativo
-
-		game->dir_x = game->dir_x * cos(rot_speed) - game->dir_y * sin(rot_speed);
-		game->dir_y = old_dir_x * sin(rot_speed) + game->dir_y * cos(rot_speed);
-
-		game->plane_x = game->plane_x * cos(rot_speed) - game->plane_y * sin(rot_speed);
-		game->plane_y = old_plane_x * sin(rot_speed) + game->plane_y * cos(rot_speed);
-	}
-
-
-	// 🐾 Debug pos
-	//printf("🚶‍♂️ Posición actual: (%.2f, %.2f)\n", game->player_x, game->player_y);
+	if (g->map[(int)new_y][(int)g->player_x] != '1')
+		g->player_y = new_y;
+	if (g->map[(int)g->player_y][(int)new_x] != '1')
+		g->player_x = new_x;
 }
 
+static void	rotate(t_game *g, double angle)
+{
+	double old_dir_x = g->dir_x;
+	double old_plane_x = g->plane_x;
 
+	g->dir_x = g->dir_x * cos(angle) - g->dir_y * sin(angle);
+	g->dir_y = old_dir_x * sin(angle) + g->dir_y * cos(angle);
 
+	g->plane_x = g->plane_x * cos(angle) - g->plane_y * sin(angle);
+	g->plane_y = old_plane_x * sin(angle) + g->plane_y * cos(angle);
+}
+
+void	handle_input(t_game *g)
+{
+	double move_speed = 0.05;
+	double rot_speed = 0.05;
+
+	if (g->keys[XK_w])
+		move(g, g->dir_x * move_speed, g->dir_y * move_speed);
+	if (g->keys[XK_s])
+		move(g, -g->dir_x * move_speed, -g->dir_y * move_speed);
+	if (g->keys[XK_a])
+		move(g, -g->plane_x * move_speed, -g->plane_y * move_speed);
+	if (g->keys[XK_d])
+		move(g, g->plane_x * move_speed, g->plane_y * move_speed);
+	if (g->keys[XK_Left])
+		rotate(g, -rot_speed);
+	if (g->keys[XK_Right])
+		rotate(g, rot_speed);
+}
 
 int	handle_key_press(int keycode, t_game *game)
 {
