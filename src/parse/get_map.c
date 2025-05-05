@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/05 10:56:10 by layala-s          #+#    #+#             */
+/*   Updated: 2025/05/05 10:56:12 by layala-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
 
 int	is_map_line(char *line)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] == '\0' || line[i] == '\n')
@@ -19,7 +32,7 @@ int	is_map_line(char *line)
 	return (1);
 }
 
-int		get_lines(t_game *g, int map_count, int map_start, char **copy)
+int	get_lines(t_game *g, int map_count, int map_start, char **copy)
 {
 	int	i;
 
@@ -30,6 +43,7 @@ int		get_lines(t_game *g, int map_count, int map_start, char **copy)
 		i++;
 	}
 	g->map[map_count] = NULL;
+	return (0);
 }
 
 void	get_map(t_game *g, char **copy)
@@ -46,7 +60,7 @@ void	get_map(t_game *g, char **copy)
 		if (is_map_line(copy[i]))
 		{
 			map_start = i;
-			break;
+			break ;
 		}
 		i++;
 	}

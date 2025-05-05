@@ -12,96 +12,34 @@
 
 #include "cub3d.h"
 
-void	check_element_value(char *s, int n, t_game *g)
-{
-	int	i;
-
-	i = 0;
-	if (n == 3)
-	{
-		if (!check_extension(s, ".xpm"))
-			exit_error("Error: texture file should be <texture_path.xpm>", \
-			1, g);
-	}
-	if (n == 2)
-	{
-		while (s[i])
-		{
-			if (s[i] == '-')
-				exit_error("Error: RGB should have positive numeric values", \
-				1, g);
-			i++;
-		}
-	}
-}
-
-void	init_elements(char **str, char *element, int n, t_game *g)
-{
-	char	*s;
-	int		i;
-
-	*str = malloc(ft_strlen(element) + 1);
-	if (!(*str))
-		return ;
-	s = *str;
-	copy_str(*str, element, n);
-	check_element_value(s, n, g);
-}
-t_game	*init_struct(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (NULL);
-	game->e = malloc(sizeof(t_element));
-	if (!game->e)
-		return (NULL);
-	game->elements = malloc(sizeof(char *) * 6);
-	while (i < 6)
-		game->elements[i++] = 0;
-	// game->map = mock_map();
-	game->e->ea_tx = NULL;
-    game->e->we_tx = NULL;
-    game->e->so_tx = NULL;
-    game->e->no_tx = NULL;
-    game->e->c_rgb = NULL;
-    game->e->f_rgb = NULL;
-	game->player_x = 4.5;
-	game->player_y = 5.5;
-	game->dir_x = 0;
-	game->dir_y = -1;
-	game->plane_x = 0.66;
-	return (game->plane_y = 0 ,game);
-}
-
-
 char	**copy_file(const char *filename)
 {
 	int		fd;
-	int		line_count = 0;
+	int		line_count;
 	char	*line;
-	char	**temp = malloc(sizeof(char *) * 1024); // Ajusta si quieres tamaño dinámico
+	char	**temp;
 
+	temp = malloc(sizeof(char *) * 1024);
 	if (!temp)
 		return (NULL);
-
+	line_count = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Error al abrir el archivo");
 		return (NULL);
-	}
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
-		temp[line_count++] = line; // No hacer strdup, gnl ya devuelve malloc
+		temp[line_count++] = line;
+		line = get_next_line(fd);
 	}
 	temp[line_count] = NULL;
 	close(fd);
 	return (temp);
 }
-
+/*
+	**BUG: Personaje siempre aparece en el mismo sitio, por eso los mapas
+	pequenhos se rompen
+*/
 int	main(int ac, char **av)
 {
 	t_game	*game;
@@ -119,5 +57,3 @@ int	main(int ac, char **av)
 	free_game(game);
 	return (0);
 }
-
-
