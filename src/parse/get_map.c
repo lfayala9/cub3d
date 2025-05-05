@@ -80,20 +80,20 @@ void	get_position(t_game *g)
 	int	pos_x;
 	int	pos_y;
 
-	pos_x = 0;
-	while (g->map[pos_x])
+	pos_y = 0;
+	while (g->map[pos_y])
 	{
-		pos_y = 0;
-		while (g->map[pos_y])
+		pos_x = 0;
+		while (g->map[pos_y][pos_x])
 		{
-			if (g->map[pos_x][pos_y]  == 'N')
+			if (g->map[pos_y][pos_x]  == 'N')
 			{
-				g->player_x = pos_x + 0;
-				g->player_y = pos_y + 0;
+				g->player_x = pos_x;
+				g->player_y = pos_y;
 				return ;
 			}
-			pos_y++;
+			pos_x++;
 		}
-		pos_x++;
+		pos_y++;
 	}
 }
