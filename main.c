@@ -36,10 +36,7 @@ char	**copy_file(const char *filename)
 	close(fd);
 	return (temp);
 }
-/*
-	**BUG: Personaje siempre aparece en el mismo sitio, por eso los mapas
-	pequenhos se rompen
-*/
+
 int	main(int ac, char **av)
 {
 	t_game	*game;
@@ -53,6 +50,8 @@ int	main(int ac, char **av)
 	temp = copy_file(av[1]);
 	parse_data(game, av[1]);
 	get_map(game, temp);
+	for (int i = 0; game->map[i]; i++)
+		printf("%s", game->map[i]);
 	get_position(game);
 	start_game(game);
 	free_game(game);
