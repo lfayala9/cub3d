@@ -74,3 +74,26 @@ void	get_map(t_game *g, char **copy)
 		exit_error("Error: fallo al asignar memoria para el mapa", 1, g);
 	get_lines(g, map_count, map_start, copy);
 }
+
+void	get_position(t_game *g)
+{
+	int	pos_x;
+	int	pos_y;
+
+	pos_x = 0;
+	while (g->map[pos_x])
+	{
+		pos_y = 0;
+		while (g->map[pos_y])
+		{
+			if (g->map[pos_x][pos_y]  == 'N')
+			{
+				g->player_x = pos_x + 0;
+				g->player_y = pos_y + 0;
+				return ;
+			}
+			pos_y++;
+		}
+		pos_x++;
+	}
+}

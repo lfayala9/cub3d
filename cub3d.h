@@ -79,6 +79,7 @@ int		check_input(int ac, char **av);
 int		handle_key_press(int keycode, t_game *game);
 int		parse_data(t_game *g, char *file);
 int		handle_key_release(int keycode, t_game *game);
+void	get_position(t_game *g);
 int		check_extension(char *filename, char *extension);
 double	ft_abs(double x);
 t_game	*init_struct(t_game *game);
