@@ -55,7 +55,6 @@ void	start_game(t_game *game)
 {
 	game->win_width = WIN_WIDTH;
 	game->win_height = WIN_HEIGHT;
-
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		exit(1);
