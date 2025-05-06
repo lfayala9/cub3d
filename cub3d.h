@@ -49,6 +49,7 @@ typedef struct s_game
 	int			keys[MAX_KEYS];
 	int			win_height;
 	int			color;
+	int			p_count;
 	int			win_width;
 	char		**map;
 	char		**elements;

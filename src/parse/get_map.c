@@ -43,6 +43,10 @@ int	get_lines(t_game *g, int map_count, int map_start, char **copy)
 		i++;
 	}
 	g->map[map_count] = NULL;
+	i = 0;
+	while (copy[i])
+		free(copy[i++]);
+	free(copy);
 	return (0);
 }
 

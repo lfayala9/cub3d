@@ -37,8 +37,9 @@ void	free_game(t_game *g)
 		i++;
 	}
 	i = 0;
-	// while (g->map[i])
-	// 	free(g->map[i++]);
+	while (g->map[i])
+		free(g->map[i++]);
+	free(g->map);
 	free(g->elements);
 	free(g);
 }

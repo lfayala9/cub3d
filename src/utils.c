@@ -68,8 +68,9 @@ t_game	*init_struct(t_game *game)
 	game->e->no_tx = NULL;
 	game->e->c_rgb = NULL;
 	game->e->f_rgb = NULL;
-	game->player_x = 4.5;
-	game->player_y = 5.5;
+	game->p_count = 0;
+	game->player_x = 0.5;
+	game->player_y = 0.5;
 	game->dir_x = 0;
 	game->dir_y = -1;
 	game->plane_x = 0.66;
