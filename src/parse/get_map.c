@@ -90,14 +90,25 @@ void	get_position(t_game *g)
 		pos_x = 0;
 		while (g->map[pos_y][pos_x])
 		{
-			if (g->map[pos_y][pos_x]  == 'N')
+			if (g->map[pos_y][pos_x] == 'N' || \
+				g->map[pos_y][pos_x] == 'S' || \
+				g->map[pos_y][pos_x] == 'W' || \
+				g->map[pos_y][pos_x] == 'E')
 			{
-				g->player_x = pos_x;
-				g->player_y = pos_y;
+				g->player_x += pos_x;
+				g->player_y += pos_y;
 				return ;
 			}
 			pos_x++;
 		}
 		pos_y++;
 	}
+}
+
+void	validate_map(t_game *g)
+{
+	if (check_first_last(g->map) != 0 || check_values(g->map, g) != 0)
+		exit_error("Error: Invalid map", 1, g);
+	if (g->p_count > 1 || g->p_count < 1)
+		exit_error("Error: only ONE player character <W, S, N, E>", 1, g);
 }

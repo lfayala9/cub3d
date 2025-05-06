@@ -51,7 +51,6 @@ int	main(int ac, char **av)
 	parse_data(game, av[1]);
 	get_map(game, temp);
 	validate_map(game);
-	get_position(game);
 	start_game(game);
 	free_game(game);
 	return (0);

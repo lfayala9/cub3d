@@ -74,3 +74,27 @@ int	parse_data(t_game *g, char *file)
 	}
 	return (0);
 }
+
+int	check_values(char **map, t_game *g)
+{
+	int	x;
+	int	y;
+
+	x = -1;
+	while (map[++x])
+	{
+		y = -1;
+		while (map[x][++y])
+		{
+			if (check_player_and_limits(map, x, y, g) != 0)
+				return (1);
+			if (map[x][y] != '1' && map[x][y] != '0' && map[x][y] != ' ' \
+				&& map[x][y] != '\t' && map[x][y] != '\n' && map[x][y] != 'S' \
+				&& map[x][y] != 'N' && map[x][y] != 'E' && map[x][y] != 'W')
+				return (1);
+		}
+	}
+	if (check_edges(map))
+		return (1);
+	return (0);
+}
