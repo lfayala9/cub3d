@@ -50,13 +50,9 @@ int	main(int ac, char **av)
 	temp = copy_file(av[1]);
 	parse_data(game, av[1]);
 	get_map(game, temp);
-	for (int i = 0; game->map[i]; i++)
-	{
-		printf("%s", game->map[i]);
-	}
 	validate_map(game);
 	get_position(game);
-	// start_game(game);
+	start_game(game);
 	free_game(game);
 	return (0);
 }
