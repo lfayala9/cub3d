@@ -20,8 +20,10 @@ void	check_element_value(char *s, int n, t_game *g)
 	if (n == 3)
 	{
 		if (!check_extension(s, ".xpm"))
+		{
 			exit_error("Error: texture file should be <texture_path.xpm>", \
 			1, g);
+		}
 	}
 	if (n == 2)
 	{
@@ -80,11 +82,16 @@ t_game	*init_struct(t_game *game)
 void	exit_error(char *msg, int code_free, t_game *g)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	printf("%s\n", msg);
 	if (code_free == 1)
 	{
+		j = 0;
+		while (g->map[j])
+			free(g->map[j++]);
+		free(g->map);
 		free(g->e->ea_tx);
 		free(g->e->we_tx);
 		free(g->e->so_tx);
@@ -93,10 +100,7 @@ void	exit_error(char *msg, int code_free, t_game *g)
 		free(g->e->f_rgb);
 		free(g->e);
 		while (i < 6)
-		{
-			free(g->elements[i]);
-			i++;
-		}
+			free(g->elements[i++]);
 		free(g->elements);
 		free(g);
 	}

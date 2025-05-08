@@ -20,7 +20,7 @@ void	copy_str(char *dest, char*src, int n)
 		ft_strcpy(dest, src + n);
 }
 
-int	check_data(t_game *g, char *file)
+int	check_data(t_game *g)
 {
 	int			i;
 	int			found[6];
@@ -49,14 +49,18 @@ int	check_data(t_game *g, char *file)
 	return (0);
 }
 
-int	parse_data(t_game *g, char *file)
+int	parse_data(t_game *g, char **copy)
 {
 	int	i;
 
 	i = 0;
-	get_elements(g, file);
-	check_data(g, file);
-	while (i < 6)
+	get_elements(g, copy);
+	while (copy[i])
+		free(copy[i++]);
+	free(copy);
+	check_data(g);
+	i = -1;
+	while (++i < 6)
 	{
 		if (ft_strncmp("WE", g->elements[i], 2) == 0)
 			init_elements(&(g->e->we_tx), g->elements[i], 3, g);
@@ -70,7 +74,6 @@ int	parse_data(t_game *g, char *file)
 			init_elements(&(g->e->f_rgb), g->elements[i], 2, g);
 		if (ft_strncmp("C", g->elements[i], 1) == 0)
 			init_elements(&(g->e->c_rgb), g->elements[i], 2, g);
-		i++;
 	}
 	return (0);
 }

@@ -80,27 +80,30 @@ char	*clean_string(char *line)
 	return (ret);
 }
 
-void	get_elements(t_game *g, char *file)
+void	get_elements(t_game *g, char **copy)
 {
-	int		fd;
 	int		count;
-	char	*buffer;
+	int		i;
+	char	*line;
 
-	fd = open(file, O_RDONLY);
 	count = 0;
-	if (fd == -1)
-		exit(EXIT_FAILURE);
-	while (count < 6)
+	i = 0;
+	while (count < 6 && copy[i])
 	{
-		buffer = get_next_line(fd);
-		if (empty_line(buffer))
+		line = ft_strdup(copy[i]);
+		if (!line)
+			break;
+		if (empty_line(line))
 		{
-			free(buffer);
-			continue ;
+			free(line);
+			i++;
+			continue;
 		}
-		g->elements[count] = clean_string(buffer);
-		free(buffer);
+		g->elements[count] = clean_string(line);
+		free(line);
 		count++;
+		i++;
 	}
-	close(fd);
+	i = 0;
+	g->elements[count] = NULL;
 }
