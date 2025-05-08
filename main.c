@@ -48,11 +48,9 @@ int	main(int ac, char **av)
 	if (!game)
 		return (1);
 	temp = copy_file(av[1]);
-	parse_data(game, av[1]);
 	get_map(game, temp);
-	for (int i = 0; game->map[i]; i++)
-		printf("%s", game->map[i]);
-	get_position(game);
+	parse_data(game, temp);
+	validate_map(game);
 	start_game(game);
 	free_game(game);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:51:33 by aurodrig          #+#    #+#             */
-/*   Updated: 2025/04/20 17:05:22 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:45:05 by layala-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	free_game(t_game *g)
 		i++;
 	}
 	i = 0;
-	// while (g->map[i])
-	// 	free(g->map[i++]);
+	while (g->map[i])
+		free(g->map[i++]);
+	free(g->map);
 	free(g->elements);
 	free(g);
 }
@@ -53,6 +54,7 @@ int	exit_game(t_game *game)
 
 void	start_game(t_game *game)
 {
+	get_position(game);
 	game->win_width = WIN_WIDTH;
 	game->win_height = WIN_HEIGHT;
 	game->mlx_ptr = mlx_init();

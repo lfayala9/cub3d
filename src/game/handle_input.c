@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:54:33 by aurodrig          #+#    #+#             */
-/*   Updated: 2025/04/20 16:54:34 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:42:35 by layala-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	handle_input(t_game *g)
 int	handle_key_press(int keycode, t_game *game)
 {
 	if (keycode >= 0 && keycode < MAX_KEYS)
-    {
 		game->keys[keycode] = 1;
-        printf("🔑 Tecla presionada: %d\n", keycode);  // 👈 DEBUG
-    }
 	if (keycode == XK_Escape)
 	{
 		mlx_destroy_window(game->mlx_ptr, game->mlx_win);
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+		free_game(game);
 		exit(0);
 	}
 	return (0);
@@ -72,9 +72,6 @@ int	handle_key_press(int keycode, t_game *game)
 int	handle_key_release(int keycode, t_game *game)
 {
 	if (keycode >= 0 && keycode < MAX_KEYS)
-    {
 		game->keys[keycode] = 0;
-       printf("🛑 Tecla soltada: %d\n", keycode);  // 👈 DEBUG
-    }
 	return (0);
 }

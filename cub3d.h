@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:32 by layala-s          #+#    #+#             */
-/*   Updated: 2025/04/20 17:03:05 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:38:12 by layala-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_game
 	int			keys[MAX_KEYS];
 	int			win_height;
 	int			color;
+	int			p_count;
 	int			win_width;
 	char		**map;
 	char		**elements;
@@ -67,7 +68,7 @@ void	free_game(t_game *g);
 void	raycast(t_game *game);
 void	init_mlx(t_game *game);
 void	handle_input(t_game *game);
-void	get_elements(t_game *g, char *file);
+void	get_elements(t_game *g, char **copy);
 void	copy_str(char *dest, char*src, int n);
 void	exit_error(char *msg, int code_free, t_game *g);
 void	init_elements(char **str, char *element, int n, t_game *g);
@@ -77,7 +78,12 @@ void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 int		draw_frame(t_game *game);
 int		check_input(int ac, char **av);
 int		handle_key_press(int keycode, t_game *game);
-int		parse_data(t_game *g, char *file);
+int		check_values(char **map, t_game *g);
+int		check_player_and_limits(char **map, int x, int y, t_game *g);
+int		check_edges(char **map);
+int		check_first_last(char **map);
+void	validate_map(t_game *g);
+int		parse_data(t_game *g, char **copy);
 int		handle_key_release(int keycode, t_game *game);
 void	get_position(t_game *g);
 int		check_extension(char *filename, char *extension);
