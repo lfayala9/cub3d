@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:56:10 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/11 20:44:52 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:22:39 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,54 @@ void	get_map(t_game *g, char **copy)
 	get_lines(g, map_count, map_start, copy);
 }
 
+static void	set_direction(t_game *g, char ori)
+{
+	if (ori == 'N')
+	{
+		g->dir_x = 0.0;
+		g->dir_y = -1.0;
+	}
+	else if (ori == 'S')
+	{
+		g->dir_x = 0.0;
+		g->dir_y = 1.0;
+	}
+	else if (ori == 'E')
+	{
+		g->dir_x = 1.0;
+		g->dir_y = 0.0;
+	}
+	else if (ori == 'W')
+	{
+		g->dir_x = -1.0;
+		g->dir_y = 0.0;
+	}
+}
+
+static void	set_plane(t_game *g, char ori)
+{
+	if (ori == 'N')
+	{
+		g->plane_x = 0.66;
+		g->plane_y = 0.0;
+	}
+	else if (ori == 'S')
+	{
+		g->plane_x = -0.66;
+		g->plane_y = 0.0;
+	}
+	else if (ori == 'E')
+	{
+		g->plane_x = 0.0;
+		g->plane_y = 0.66;
+	}
+	else if (ori == 'W')
+	{
+		g->plane_x = 0.0;
+		g->plane_y = -0.66;
+	}
+}
+
 void	get_position(t_game *g)
 {
 	int		pos_x;
@@ -96,36 +144,10 @@ void	get_position(t_game *g)
 			{
 				g->player_x = pos_x + 0.5;
 				g->player_y = pos_y + 0.5;
-				if (ori == 'N')
-				{
-					g->dir_x = 0.0;
-					g->dir_y = -1.0;
-					g->plane_x = 0.66;
-					g->plane_y = 0.0;
-				}
-				else if (ori == 'S')
-				{
-					g->dir_x = 0.0;
-					g->dir_y = 1.0;
-					g->plane_x = -0.66;
-					g->plane_y = 0.0;
-				}
-				else if (ori == 'E')
-				{
-					g->dir_x = 1.0;
-					g->dir_y = 0.0;
-					g->plane_x = 0.0;
-					g->plane_y = 0.66;
-				}
-				else if (ori == 'W')
-				{
-					g->dir_x = -1.0;
-					g->dir_y = 0.0;
-					g->plane_x = 0.0;
-					g->plane_y = -0.66;
-				}
+				set_direction(g, ori);
+				set_plane(g, ori);
 				g->map[pos_y][pos_x] = '0';
-				return (0);
+//				return (0);
 			}
 			pos_x++;
 		}
