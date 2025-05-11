@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:56:10 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/11 20:23:37 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:44:52 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,10 @@ void	get_map(t_game *g, char **copy)
 	get_lines(g, map_count, map_start, copy);
 }
 
-/* Actualizado en get_map.c: función get_position con corrección de plane para rotación correcta */
 void	get_position(t_game *g)
 {
-	int	pos_x;
-	int	pos_y;
+	int		pos_x;
+	int		pos_y;
 	char	ori;
 
 	pos_y = 0;
@@ -95,49 +94,44 @@ void	get_position(t_game *g)
 			ori = g->map[pos_y][pos_x];
 			if (ori == 'N' || ori == 'S' || ori == 'E' || ori == 'W')
 			{
-				// Centrar jugador
 				g->player_x = pos_x + 0.5;
 				g->player_y = pos_y + 0.5;
-				// Orientación inicial y plano corregido
 				if (ori == 'N')
 				{
-					g->dir_x   =  0.0;
-					g->dir_y   = -1.0;
-					g->plane_x =  0.66;
-					g->plane_y =  0.0;
+					g->dir_x = 0.0;
+					g->dir_y = -1.0;
+					g->plane_x = 0.66;
+					g->plane_y = 0.0;
 				}
 				else if (ori == 'S')
 				{
-					g->dir_x   =  0.0;
-					g->dir_y   =  1.0;
+					g->dir_x = 0.0;
+					g->dir_y = 1.0;
 					g->plane_x = -0.66;
-					g->plane_y =  0.0;
+					g->plane_y = 0.0;
 				}
 				else if (ori == 'E')
 				{
-					g->dir_x   =  1.0;
-					g->dir_y   =  0.0;
-					g->plane_x =  0.0;
-					g->plane_y =  0.66;
+					g->dir_x = 1.0;
+					g->dir_y = 0.0;
+					g->plane_x = 0.0;
+					g->plane_y = 0.66;
 				}
 				else if (ori == 'W')
 				{
-					g->dir_x   = -1.0;
-					g->dir_y   =  0.0;
-					g->plane_x =  0.0;
+					g->dir_x = -1.0;
+					g->dir_y = 0.0;
+					g->plane_x = 0.0;
 					g->plane_y = -0.66;
 				}
-
-				// Marcar como vacío
 				g->map[pos_y][pos_x] = '0';
-				return;
+				return (0);
 			}
 			pos_x++;
 		}
 		pos_y++;
 	}
 }
-
 
 void	validate_map(t_game *g)
 {
