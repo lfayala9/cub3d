@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:56:10 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/05 10:56:12 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:23:37 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ void	get_map(t_game *g, char **copy)
 	get_lines(g, map_count, map_start, copy);
 }
 
+/* Actualizado en get_map.c: función get_position con corrección de plane para rotación correcta */
 void	get_position(t_game *g)
 {
 	int	pos_x;
 	int	pos_y;
+	char	ori;
 
 	pos_y = 0;
 	while (g->map[pos_y])
@@ -90,20 +92,52 @@ void	get_position(t_game *g)
 		pos_x = 0;
 		while (g->map[pos_y][pos_x])
 		{
-			if (g->map[pos_y][pos_x] == 'N' || \
-				g->map[pos_y][pos_x] == 'S' || \
-				g->map[pos_y][pos_x] == 'W' || \
-				g->map[pos_y][pos_x] == 'E')
+			ori = g->map[pos_y][pos_x];
+			if (ori == 'N' || ori == 'S' || ori == 'E' || ori == 'W')
 			{
-				g->player_x += pos_x;
-				g->player_y += pos_y;
-				return ;
+				// Centrar jugador
+				g->player_x = pos_x + 0.5;
+				g->player_y = pos_y + 0.5;
+				// Orientación inicial y plano corregido
+				if (ori == 'N')
+				{
+					g->dir_x   =  0.0;
+					g->dir_y   = -1.0;
+					g->plane_x =  0.66;
+					g->plane_y =  0.0;
+				}
+				else if (ori == 'S')
+				{
+					g->dir_x   =  0.0;
+					g->dir_y   =  1.0;
+					g->plane_x = -0.66;
+					g->plane_y =  0.0;
+				}
+				else if (ori == 'E')
+				{
+					g->dir_x   =  1.0;
+					g->dir_y   =  0.0;
+					g->plane_x =  0.0;
+					g->plane_y =  0.66;
+				}
+				else if (ori == 'W')
+				{
+					g->dir_x   = -1.0;
+					g->dir_y   =  0.0;
+					g->plane_x =  0.0;
+					g->plane_y = -0.66;
+				}
+
+				// Marcar como vacío
+				g->map[pos_y][pos_x] = '0';
+				return;
 			}
 			pos_x++;
 		}
 		pos_y++;
 	}
 }
+
 
 void	validate_map(t_game *g)
 {
