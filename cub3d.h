@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:32 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/12 16:27:23 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:20:46 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,27 @@ typedef struct s_game
 	double		dir_y;
 	t_element	*e;
 }	t_game;
+
+typedef struct s_ray_data
+{
+	double camera_x;
+	double ray_x;
+	double ray_y;
+	int    map_x;
+	int    map_y;
+	double delta_x;
+	double delta_y;
+	double side_x;
+	double side_y;
+	int    step_x;
+	int    step_y;
+	int    hit;
+	int    side;
+	double perp_dist;
+	int    line_height;
+	int    draw_start;
+	int    draw_end;
+}   t_ray_data;
 
 /*FUNCTIONS*/
 

@@ -6,126 +6,118 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:35:24 by aurodrig          #+#    #+#             */
-/*   Updated: 2025/05/12 16:36:27 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:33:59 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+ #include "../../cub3d.h"
 
-// Raycaster completo con techo, pared y suelo
+//Raycaster completo con techo, pared y suelo
 void	raycast(t_game *game)
 {
 	//printf("👉 raycast ejecutándose\n");  // 👈 DEBUG
 	int		x;
-	double	camera_x;
-	double	ray_x;
-	double	ray_y;
-	int		map_x;
-	int		map_y;
-	double	delta_x;
-	double	delta_y;
-	double	side_x;
-	double	side_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	double	perp_dist;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
+	t_ray_data r;
 
 	x = 0;
 	while (x < game->win_width)
 	{
 		// 1️⃣ Dirección del rayo
-		camera_x = 2.0 * x / game->win_width - 1.0;
-		ray_x = game->dir_x + game->plane_x * camera_x;
-		ray_y = game->dir_y + game->plane_y * camera_x;
+		r.camera_x = 2.0 * x / game->win_width - 1.0;
+		r.ray_x = game->dir_x + game->plane_x * r.camera_x;
+		r.ray_y = game->dir_y + game->plane_y * r.camera_x;
 
-		map_x = (int)(game->player_x);
-		map_y = (int)(game->player_y);
+		r.map_x = (int)(game->player_x);
+		r.map_y = (int)(game->player_y);
 
-		if (ray_x == 0)
-			delta_x = 1e30;
+		if (r.ray_x == 0)
+			r.delta_x = 1e30;
 		else
-			delta_x = ft_abs(1.0 / ray_x);
-		if (ray_y == 0)
-			delta_y = 1e30;
+			r.delta_x = ft_abs(1.0 / r.ray_x);
+		if (r.ray_y == 0)
+			r.delta_y = 1e30;
 		else
-			delta_y = ft_abs(1.0 / ray_y);
+			r.delta_y = ft_abs(1.0 / r.ray_y);
 
 		// 2️⃣ Steps y side distances
-		if (ray_x < 0)
+		if (r.ray_x < 0)
 		{
-			step_x = -1;
-			side_x = (game->player_x - map_x) * delta_x;
+			r.step_x = -1;
+			r.side_x = (game->player_x - r.map_x) * r.delta_x;
 		}
 		else
 		{
-			step_x = 1;
-			side_x = (map_x + 1.0 - game->player_x) * delta_x;
+			r.step_x = 1;
+			r.side_x = (r.map_x + 1.0 - game->player_x) * r.delta_x;
 		}
-		if (ray_y < 0)
+		if (r.ray_y < 0)
 		{
-			step_y = -1;
-			side_y = (game->player_y - map_y) * delta_y;
+			r.step_y = -1;
+			r.side_y = (game->player_y - r.map_y) * r.delta_y;
 		}
 		else
 		{
-			step_y = 1;
-			side_y = (map_y + 1.0 - game->player_y) * delta_y;
+			r.step_y = 1;
+			r.side_y = (r.map_y + 1.0 - game->player_y) * r.delta_y;
 		}
 
 		// 3️⃣ DDA
-		hit = 0;
-		while (hit == 0)
+		r.hit = 0;
+		while (r.hit == 0)
 		{
-			if (side_x < side_y)
+			if (r.side_x < r.side_y)
 			{
-				side_x += delta_x;
-				map_x += step_x;
-				side = 0;
+				r.side_x += r.delta_x;
+				r.map_x += r.step_x;
+				r.side = 0;
 			}
 			else
 			{
-				side_y += delta_y;
-				map_y += step_y;
-				side = 1;
+				r.side_y += r.delta_y;
+				r.map_y += r.step_y;
+				r.side = 1;
 			}
-			if (game->map[map_y][map_x] == '1')
-				hit = 1;
+			if (game->map[r.map_y][r.map_x] == '1')
+				r.hit = 1;
 		}
 
 		// 4️⃣ Distancia perpendicular al muro
-		if (side == 0)
-			perp_dist = (map_x - game->player_x + (1 - step_x) / 2.0) / ray_x;
+		if (r.side == 0)
+			r.perp_dist = (r.map_x - game->player_x + (1 - r.step_x) / 2.0) / r.ray_x;
 		else
-			perp_dist = (map_y - game->player_y + (1 - step_y) / 2.0) / ray_y;
+			r.perp_dist = (r.map_y - game->player_y + (1 - r.step_y) / 2.0) / r.ray_y;
 
 		// 5️⃣ Tamaño y posición de la pared
-		line_height = (int)(game->win_height / perp_dist);
-		draw_start = -line_height / 2 + game->win_height / 2;
-		draw_end = line_height / 2 + game->win_height / 2;
+		r.line_height = (int)(game->win_height / r.perp_dist);
+		r.draw_start = -r.line_height / 2 + game->win_height / 2;
+		r.draw_end = r.line_height / 2 + game->win_height / 2;
 
 		// ⚠️ Clampeo
-		if (draw_start < 0)
-			draw_start = 0;
-		if (draw_end >= game->win_height)
-			draw_end = game->win_height - 1;
+		if (r.draw_start < 0)
+			r.draw_start = 0;
+		if (r.draw_end >= game->win_height)
+			r.draw_end = game->win_height - 1;
 
 		// 🔵 Techo
 		game->color = 0x3333FF;
-		draw_vertical_line(game, x, 0, draw_start - 1);
+		draw_vertical_line(game, x, 0, r.draw_start - 1);
 
 		// 🟩 Pared
 		game->color = 0x00FF00;
-		draw_vertical_line(game, x, draw_start, draw_end);
+		draw_vertical_line(game, x, r.draw_start, r.draw_end);
 
 		// 🟫 Suelo
 		game->color = 0x996633;
-		draw_vertical_line(game, x, draw_end + 1, game->win_height - 1);
+		draw_vertical_line(game, x, r.draw_end + 1, game->win_height - 1);
 
 		x++;
 	}
 }
+
+
+
+
+
+
+
+
