@@ -11,6 +11,7 @@ src/parse/get_map.c \
 src/parse/parse_map.c \
 src/render/draw_frame.c \
 src/render/raycast.c \
+src/render/draw_line.c \
 src/game/start_game.c \
 src/game/handle_input.c
 

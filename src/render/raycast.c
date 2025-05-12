@@ -1,29 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/12 16:35:24 by aurodrig          #+#    #+#             */
+/*   Updated: 2025/05/12 16:36:27 by aurodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../cub3d.h"
-
-
-void	draw_vertical_line(t_game *game, int x, int y0, int y1)
-{
-	int	y;
-
-	if (y0 < 0)
-		y0 = 0;
-	if (y1 >= game->win_height)
-		y1 = game->win_height - 1;
-	y = y0;
-	while (y <= y1)
-	{
-		mlx_pixel_put(game->mlx_ptr, game->mlx_win, x, y, game->color);
-		y++;
-	}
-}
-
-// Valor absoluto sin usar fabs
-double	ft_abs(double x)
-{
-	if (x < 0)
-		return -x;
-	return x;
-}
 
 // Raycaster completo con techo, pared y suelo
 void	raycast(t_game *game)
