@@ -60,7 +60,8 @@ void	start_game(t_game *game)
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		exit(1);
-	game->mlx_win = mlx_new_window(game->mlx_ptr, game->win_width, game->win_height, "cub3D");
+	game->mlx_win = mlx_new_window(game->mlx_ptr, game->win_width, \
+	game->win_height, "cub3D");
 	if (!game->mlx_win)
 		exit(1);
 	mlx_hook(game->mlx_win, 2, 1L << 0, handle_key_press, game);

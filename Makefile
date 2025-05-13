@@ -5,12 +5,14 @@ FLAGS = -Wall -Wextra -Werror
 SRCS = main.c \
 src/utils.c \
 src/parse/check_input.c \
+src/parse/parse_utils.c \
 src/parse/get_elements.c \
 src/parse/parsing.c \
 src/parse/get_map.c \
 src/parse/parse_map.c \
 src/render/draw_frame.c \
 src/render/raycast.c \
+src/render/draw_line.c \
 src/game/start_game.c \
 src/game/handle_input.c
 
@@ -43,4 +45,4 @@ norme:
 
 re: fclean all
 
-.PHONY: all re clean fclean
+.PHONY: all re clean fclean norme

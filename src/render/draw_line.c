@@ -10,9 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "../../cub3d.h"
+
+void	init_ray(t_game *game, t_ray_data *r, int x)
+{
+	r->camera_x = 2.0 * x / game->win_width - 1.0;
+	r->ray_x = game->dir_x + game->plane_x * r->camera_x;
+	r->ray_y = game->dir_y + game->plane_y * r->camera_x;
+	r->map_x = (int)game->player_x;
+	r->map_y = (int)game->player_y;
+}
 
 // Pinta una línea vertical en x desde y0 a y1 de un solo color
 void	draw_vertical_line(t_game *game, int x, int y0, int y1)
@@ -29,4 +36,17 @@ void	draw_vertical_line(t_game *game, int x, int y0, int y1)
 		mlx_pixel_put(game->mlx_ptr, game->mlx_win, x, y, game->color);
 		y++;
 	}
+}
+
+void	draw_slice(t_game *game, t_ray_data *r, int x)
+{
+	// 🔵 Techo
+	game->color = 0x3333FF;
+	draw_vertical_line(game, x, 0, r->draw_start - 1);
+	// 🟩 Pared
+	game->color = 0x00FF00;
+	draw_vertical_line(game, x, r->draw_start, r->draw_end);
+	// 🟫 Suelo
+	game->color = 0x996633;
+	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
 }

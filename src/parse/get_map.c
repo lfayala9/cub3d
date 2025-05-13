@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:56:10 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/05 10:56:12 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/11 21:22:39 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ int	get_lines(t_game *g, int map_count, int map_start, char **copy)
 	}
 	g->map[map_count] = NULL;
 	i = 0;
-	// while (copy[i])
-	// 	free(copy[i++]);
-	// free(copy);
 	return (0);
 }
 
@@ -81,8 +78,9 @@ void	get_map(t_game *g, char **copy)
 
 void	get_position(t_game *g)
 {
-	int	pos_x;
-	int	pos_y;
+	int		pos_x;
+	int		pos_y;
+	char	ori;
 
 	pos_y = 0;
 	while (g->map[pos_y])
@@ -90,14 +88,14 @@ void	get_position(t_game *g)
 		pos_x = 0;
 		while (g->map[pos_y][pos_x])
 		{
-			if (g->map[pos_y][pos_x] == 'N' || \
-				g->map[pos_y][pos_x] == 'S' || \
-				g->map[pos_y][pos_x] == 'W' || \
-				g->map[pos_y][pos_x] == 'E')
+			ori = g->map[pos_y][pos_x];
+			if (ori == 'N' || ori == 'S' || ori == 'E' || ori == 'W')
 			{
-				g->player_x += pos_x;
-				g->player_y += pos_y;
-				return ;
+				g->player_x = pos_x + 0.5;
+				g->player_y = pos_y + 0.5;
+				set_direction(g, ori);
+				set_plane(g, ori);
+				g->map[pos_y][pos_x] = '0';
 			}
 			pos_x++;
 		}

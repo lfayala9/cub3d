@@ -92,12 +92,12 @@ void	get_elements(t_game *g, char **copy)
 	{
 		line = ft_strdup(copy[i]);
 		if (!line)
-			break;
+			break ;
 		if (empty_line(line))
 		{
 			free(line);
 			i++;
-			continue;
+			continue ;
 		}
 		g->elements[count] = clean_string(line);
 		free(line);
