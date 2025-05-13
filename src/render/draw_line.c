@@ -50,3 +50,4 @@ void	draw_slice(t_game *game, t_ray_data *r, int x)
 	game->color = 0x996633;
 	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
 }
+
