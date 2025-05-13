@@ -12,15 +12,6 @@
 
 #include "../../cub3d.h"
 
-static void	init_ray(t_game *game, t_ray_data *r, int x)
-{
-	r->camera_x = 2.0 * x / game->win_width - 1.0;
-	r->ray_x = game->dir_x + game->plane_x * r->camera_x;
-	r->ray_y = game->dir_y + game->plane_y * r->camera_x;
-	r->map_x = (int)game->player_x;
-	r->map_y = (int)game->player_y;
-}
-
 static void	calc_delta(t_ray_data *r)
 {
 	if (r->ray_x == 0.0)
@@ -94,19 +85,6 @@ static void	calc_line(t_game *game, t_ray_data *r)
 		r->draw_start = 0;
 	if (r->draw_end >= game->win_height)
 		r->draw_end = game->win_height - 1;
-}
-
-static void	draw_slice(t_game *game, t_ray_data *r, int x)
-{
-	// 🔵 Techo
-	game->color = 0x3333FF;
-	draw_vertical_line(game, x, 0, r->draw_start - 1);
-	// 🟩 Pared
-	game->color = 0x00FF00;
-	draw_vertical_line(game, x, r->draw_start, r->draw_end);
-	// 🟫 Suelo
-	game->color = 0x996633;
-	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
 }
 
 void	raycast(t_game *game)

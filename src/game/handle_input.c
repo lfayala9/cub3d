@@ -14,9 +14,11 @@
 
 static void	move(t_game *g, double dx, double dy)
 {
-	double new_x = g->player_x + dx;
-	double new_y = g->player_y + dy;
+	double	new_x;
+	double	new_y;
 
+	new_x = g->player_x + dx;
+	new_y = g->player_y + dy;
 	if (g->map[(int)new_y][(int)g->player_x] != '1')
 		g->player_y = new_y;
 	if (g->map[(int)g->player_y][(int)new_x] != '1')
@@ -25,21 +27,24 @@ static void	move(t_game *g, double dx, double dy)
 
 static void	rotate(t_game *g, double angle)
 {
-	double old_dir_x = g->dir_x;
-	double old_plane_x = g->plane_x;
+	double	old_dir_x;
+	double	old_plane_x;
 
+	old_dir_x = g->dir_x;
+	old_plane_x = g->plane_x;
 	g->dir_x = g->dir_x * cos(angle) - g->dir_y * sin(angle);
 	g->dir_y = old_dir_x * sin(angle) + g->dir_y * cos(angle);
-
 	g->plane_x = g->plane_x * cos(angle) - g->plane_y * sin(angle);
 	g->plane_y = old_plane_x * sin(angle) + g->plane_y * cos(angle);
 }
 
 void	handle_input(t_game *g)
 {
-	double move_speed = 0.05;
-	double rot_speed = 0.05;
+	double	move_speed;
+	double	rot_speed;
 
+	move_speed = 0.05;
+	rot_speed = 0.05;
 	if (g->keys[XK_w])
 		move(g, g->dir_x * move_speed, g->dir_y * move_speed);
 	if (g->keys[XK_s])

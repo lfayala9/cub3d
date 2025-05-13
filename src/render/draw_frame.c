@@ -22,6 +22,6 @@ int	draw_frame(t_game *game)
 double	ft_abs(double x)
 {
 	if (x < 0)
-		return -x;
-	return x;
+		return (-x);
+	return (x);
 }
