@@ -27,7 +27,7 @@
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
 # define MAX_KEYS 70000
-# define WIN_WIDTH 920
+# define WIN_WIDTH 1024
 # define WIN_HEIGHT 720
 
 /*STRUCTS*/
@@ -46,6 +46,11 @@ typedef struct s_game
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
+	void		*img;
+	char		*img_data;
+	int			bpp;
+	int			size_line;
+	int			endian;
 	int			keys[MAX_KEYS];
 	int			win_height;
 	int			color;
