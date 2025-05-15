@@ -27,8 +27,8 @@
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
 # define MAX_KEYS 70000
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 720
+# define WIN_HEIGHT 480
 
 /*STRUCTS*/
 
@@ -108,11 +108,16 @@ void	exit_error(char *msg, int code_free, t_game *g);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 void	init_elements(char **str, char *element, int n, t_game *g);
 int		check_edges(char **map);
+int		exit_game(t_game *game);
 int		draw_frame(t_game *game);
+char	**get_rgb(char *color, t_game *g);
+int 	parse_rgb(char **rgb);
 int		check_first_last(char **map);
 int		check_first_last(char **map);
 int		check_input(int ac, char **av);
 int		parse_data(t_game *g, char **copy);
+int	check_rgb(char **rgb, t_game *g);
+void	free_rgb(char **rgb);
 int		check_values(char **map, t_game *g);
 int		handle_key_press(int keycode, t_game *game);
 int		handle_key_release(int keycode, t_game *game);

@@ -47,13 +47,23 @@ void	free_game(t_game *g)
 int	exit_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx_ptr, game->mlx_win);
-	printf("You Left");
+	mlx_destroy_display(game->mlx_ptr);
+	free(game->mlx_ptr);
 	free_game(game);
 	exit(EXIT_SUCCESS);
 }
 
 void	start_game(t_game *game)
 {
+	char	**f_rgb;
+	char	**c_rgb;
+
+	f_rgb = get_rgb(game->e->f_rgb, game);
+	check_rgb(f_rgb, game);
+	free_rgb(f_rgb);
+	c_rgb = get_rgb(game->e->c_rgb, game);
+	check_rgb(c_rgb, game);
+	free_rgb(c_rgb);
 	get_position(game);
 	game->win_width = WIN_WIDTH;
 	game->win_height = WIN_HEIGHT;
