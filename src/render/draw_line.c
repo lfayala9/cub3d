@@ -38,16 +38,29 @@ void	draw_vertical_line(t_game *game, int x, int y0, int y1)
 	}
 }
 
-void	draw_slice(t_game *game, t_ray_data *r, int x)
+void	free_rgb(char **rgb)
 {
-	// 🔵 Techo
-	game->color = 0x3333FF;
-	draw_vertical_line(game, x, 0, r->draw_start - 1);
-	// 🟩 Pared
-	game->color = 0x00FF00;
-	draw_vertical_line(game, x, r->draw_start, r->draw_end);
-	// 🟫 Suelo
-	game->color = 0x996633;
-	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
+	int	i;
+
+	i = 0;
+	while (rgb[i])
+		free(rgb[i++]);
+	free(rgb);
 }
 
+void	draw_slice(t_game *game, t_ray_data *r, int x)
+{
+	char	**rgb_c;
+	char	**rgb_f;
+
+	rgb_c = get_rgb(game->e->c_rgb, game);
+	game->color = parse_rgb(rgb_c);
+	draw_vertical_line(game, x, 0, r->draw_start - 1);
+	game->color = 0x00FF00;
+	draw_vertical_line(game, x, r->draw_start, r->draw_end);
+	rgb_f = get_rgb(game->e->f_rgb, game);
+	game->color = parse_rgb(rgb_f);
+	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
+	free_rgb(rgb_c);
+	free_rgb(rgb_f);
+}

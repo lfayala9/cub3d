@@ -64,13 +64,7 @@ int	handle_key_press(int keycode, t_game *game)
 	if (keycode >= 0 && keycode < MAX_KEYS)
 		game->keys[keycode] = 1;
 	if (keycode == XK_Escape)
-	{
-		mlx_destroy_window(game->mlx_ptr, game->mlx_win);
-		mlx_destroy_display(game->mlx_ptr);
-		free(game->mlx_ptr);
-		free_game(game);
-		exit(0);
-	}
+		exit_game(game);
 	return (0);
 }
 

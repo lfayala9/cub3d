@@ -29,7 +29,7 @@ void	check_element_value(char *s, int n, t_game *g)
 	{
 		while (s[i])
 		{
-			if (s[i] == '-')
+			if (s[i] == '-' || (ft_isalpha(s[i])))
 				exit_error("Error: RGB should have positive numeric values", \
 				1, g);
 			i++;

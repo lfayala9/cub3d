@@ -9,6 +9,7 @@ src/parse/parse_utils.c \
 src/parse/get_elements.c \
 src/parse/parsing.c \
 src/parse/get_map.c \
+src/parse/get_rgb.c \
 src/parse/parse_map.c \
 src/render/draw_frame.c \
 src/render/raycast.c \
