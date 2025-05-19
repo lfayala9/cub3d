@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 10:33:00 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/13 10:33:02 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:18:30 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,24 @@ void	set_plane(t_game *g, char ori)
 		g->plane_x = 0.0;
 		g->plane_y = -0.66;
 	}
+}
+
+int	ft_is_walkable(char **map, double x, double y)
+{
+	int	ix;
+	int	iy;
+
+	ix = (int)x;
+	iy = (int)y;
+	if (map[iy][ix] != '0')
+		return (0);
+	if (map[(int)(y - C_R)][(int)(x - C_R)] != '0')
+		return (0);
+	if (map[(int)(y - C_R)][(int)(x + C_R)] != '0')
+		return (0);
+	if (map[(int)(y + C_R)][(int)(x - C_R)] != '0')
+		return (0);
+	if (map[(int)(y + C_R)][(int)(x + C_R)] != '0')
+		return (0);
+	return (1);
 }
