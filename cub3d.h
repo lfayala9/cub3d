@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:32 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/19 17:41:17 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:21:34 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define MAX_KEYS 70000
 # define WIN_WIDTH 940
 # define WIN_HEIGHT 720
+# define C_R 0.3
 
 /*STRUCTS*/
 
@@ -154,5 +155,6 @@ int		check_player_and_limits(char **map, int x, int y, t_game *g);
 double	ft_abs(double x);
 char	**get_rgb(char *color, t_game *g);
 t_game	*init_struct(t_game *game);
+int		ft_is_walkable(char **map, double x, double y);
 
 #endif

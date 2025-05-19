@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:54:33 by aurodrig          #+#    #+#             */
-/*   Updated: 2025/05/06 10:42:35 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:20:16 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	move(t_game *g, double dx, double dy)
 
 	new_x = g->player_x + dx;
 	new_y = g->player_y + dy;
-	if (g->map[(int)new_y][(int)g->player_x] != '1')
-		g->player_y = new_y;
-	if (g->map[(int)g->player_y][(int)new_x] != '1')
+	if (ft_is_walkable(g->map, new_x, g->player_y))
 		g->player_x = new_x;
+	if (ft_is_walkable(g->map, g->player_x, new_y))
+		g->player_y = new_y;
 }
 
 static void	rotate(t_game *g, double angle)
