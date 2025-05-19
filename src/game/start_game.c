@@ -46,6 +46,10 @@ void	free_game(t_game *g)
 
 int	exit_game(t_game *game)
 {
+	mlx_destroy_image(game->mlx_ptr, game->no.img);
+	mlx_destroy_image(game->mlx_ptr, game->ea.img);
+	mlx_destroy_image(game->mlx_ptr, game->so.img);	
+	mlx_destroy_image(game->mlx_ptr, game->we.img);	
 	mlx_destroy_window(game->mlx_ptr, game->mlx_win);
 	mlx_destroy_display(game->mlx_ptr);
 	free(game->mlx_ptr);
@@ -53,14 +57,18 @@ int	exit_game(t_game *game)
 	exit(EXIT_SUCCESS);
 }
 
-void	load_texture(t_game *game, t_texture *tx, char *path)
+int	load_texture(t_game *game, t_texture *tx, char *path)
 {
 	tx->img = mlx_xpm_file_to_image(game->mlx_ptr, path, \
 									&tx->width, &tx->heigth);
 	if (!tx->img)
-		exit_error("Error: can't find texture", 1, game);
+	{
+		free(game->mlx_ptr);
+		return (1);
+	}
 	tx->addr = mlx_get_data_addr(tx->img, &tx->bpp, \
 								&tx->size_line, &tx->endian);
+	return (0);
 }
 
 void	start_game(t_game *game)

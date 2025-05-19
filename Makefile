@@ -1,6 +1,6 @@
 NAME = cub3D
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror #-fsanitize=leak
 
 SRCS = main.c \
 src/utils.c \
