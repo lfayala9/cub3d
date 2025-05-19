@@ -12,6 +12,7 @@ src/parse/get_map.c \
 src/parse/get_rgb.c \
 src/parse/parse_map.c \
 src/render/draw_frame.c \
+src/render/draw_textures.c \
 src/render/raycast.c \
 src/render/draw_line.c \
 src/game/start_game.c \
