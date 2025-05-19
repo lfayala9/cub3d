@@ -135,7 +135,7 @@ void	init_ray(t_game *game, t_ray_data *r, int x);
 void	draw_texture(t_game *g, int x, t_ray_data *r);
 void	draw_slice(t_game *game, t_ray_data *r, int x);
 void	exit_error(char *msg, int code_free, t_game *g);
-void	load_texture(t_game *game, t_texture *tx, char *path);
+int	load_texture(t_game *game, t_texture *tx, char *path);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 void	init_elements(char **str, char *element, int n, t_game *g);
 int		check_edges(char **map);

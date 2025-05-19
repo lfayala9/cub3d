@@ -20,10 +20,16 @@ void	copy_str(char *dest, char*src, int n)
 		ft_strcpy(dest, src + n);
 }
 
+void	do_found(int *f, int n, t_game *g)
+{
+	if (f[n]++)
+		exit_error("Error: Duplicated element", 1, g);
+}
+
 int	check_data(t_game *g)
 {
-	int			i;
-	int			found[6];
+	int					i;
+	static int			found[6] = {0};
 
 	i = 0;
 	while (i < 6)
@@ -31,17 +37,17 @@ int	check_data(t_game *g)
 		if (ft_strncmp("1", g->elements[i], 1) == 0)
 			exit_error("Error: Map is in the middle of the file", 1, g);
 		else if (ft_strncmp("NO ", g->elements[i], 3) == 0)
-			found[0]++;
+			do_found(found, 0, g);
 		else if (ft_strncmp("SO ", g->elements[i], 3) == 0)
-			found[1]++;
+			do_found(found, 1, g);
 		else if (ft_strncmp("WE ", g->elements[i], 3) == 0)
-			found[2]++;
+			do_found(found, 2, g);
 		else if (ft_strncmp("EA ", g->elements[i], 3) == 0)
-			found[3]++;
+			do_found(found, 3, g);
 		else if (ft_strncmp("F ", g->elements[i], 2) == 0)
-			found[4]++;
+			do_found(found, 4, g);
 		else if (ft_strncmp("C ", g->elements[i], 2) == 0)
-			found[5]++;
+			do_found(found, 5, g);
 		else
 			exit_error("Error: Element should be WE EA SO NO C F", 1, g);
 		i++;
