@@ -53,6 +53,16 @@ int	exit_game(t_game *game)
 	exit(EXIT_SUCCESS);
 }
 
+void	load_texture(t_game *game, t_texture *tx, char *path)
+{
+	tx->img = mlx_xpm_file_to_image(game->mlx_ptr, path, \
+									&tx->width, &tx->heigth);
+	if (!tx->img)
+		exit_error("Error: can't find texture", 1, game);
+	tx->addr = mlx_get_data_addr(tx->img, &tx->bpp, \
+								&tx->size_line, &tx->endian);
+}
+
 void	start_game(t_game *game)
 {
 	char	**f_rgb;
@@ -70,6 +80,7 @@ void	start_game(t_game *game)
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		exit(1);
+	get_textures(game);
 	game->mlx_win = mlx_new_window(game->mlx_ptr, game->win_width, \
 	game->win_height, "cub3D");
 	if (!game->mlx_win)

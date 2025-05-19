@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:32 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/12 17:20:46 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:41:17 by layala-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
 # define MAX_KEYS 70000
-# define WIN_WIDTH 720
-# define WIN_HEIGHT 480
+# define WIN_WIDTH 940
+# define WIN_HEIGHT 720
 
 /*STRUCTS*/
 
@@ -41,6 +41,28 @@ typedef struct s_element
 	char	*c_rgb;
 	char	*f_rgb;
 }	t_element;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		heigth;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_texture;
+
+typedef struct s_draw_tex
+{
+	int		y;
+	int		tx_y;
+	int		tx_x;
+	int		color;
+	double	step;
+	double	tx_pos;
+	double	wall_x;
+}	t_draw_tex;
 
 typedef struct s_game
 {
@@ -64,6 +86,10 @@ typedef struct s_game
 	double		plane_y;
 	double		dir_x;
 	double		dir_y;
+	t_texture	no;
+	t_texture	so;
+	t_texture	we;
+	t_texture	ea;
 	t_element	*e;
 }	t_game;
 
@@ -91,39 +117,42 @@ typedef struct s_ray_data
 /*FUNCTIONS*/
 
 void	free_game(t_game *g);
+void	free_rgb(char **rgb);
 void	raycast(t_game *game);
 void	init_mlx(t_game *game);
 void	validate_map(t_game *g);
 void	get_position(t_game *g);
 void	start_game(t_game *game);
 void	handle_input(t_game *game);
+void	get_textures(t_game *game);
 void	set_plane(t_game *g, char ori);
 void	get_map(t_game *g, char **copy);
 void	set_direction(t_game *g, char ori);
 void	get_elements(t_game *g, char **copy);
 void	copy_str(char *dest, char*src, int n);
 void	init_ray(t_game *game, t_ray_data *r, int x);
+void	draw_texture(t_game *g, int x, t_ray_data *r);
 void	draw_slice(t_game *game, t_ray_data *r, int x);
 void	exit_error(char *msg, int code_free, t_game *g);
+void	load_texture(t_game *game, t_texture *tx, char *path);
 void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 void	init_elements(char **str, char *element, int n, t_game *g);
 int		check_edges(char **map);
 int		exit_game(t_game *game);
 int		draw_frame(t_game *game);
-char	**get_rgb(char *color, t_game *g);
-int 	parse_rgb(char **rgb);
+int		parse_rgb(char **rgb);
 int		check_first_last(char **map);
 int		check_first_last(char **map);
 int		check_input(int ac, char **av);
 int		parse_data(t_game *g, char **copy);
-int	check_rgb(char **rgb, t_game *g);
-void	free_rgb(char **rgb);
+int		check_rgb(char **rgb, t_game *g);
 int		check_values(char **map, t_game *g);
 int		handle_key_press(int keycode, t_game *game);
 int		handle_key_release(int keycode, t_game *game);
 int		check_extension(char *filename, char *extension);
 int		check_player_and_limits(char **map, int x, int y, t_game *g);
 double	ft_abs(double x);
+char	**get_rgb(char *color, t_game *g);
 t_game	*init_struct(t_game *game);
 
 #endif

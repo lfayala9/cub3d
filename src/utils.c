@@ -106,3 +106,11 @@ void	exit_error(char *msg, int code_free, t_game *g)
 	}
 	exit(EXIT_FAILURE);
 }
+
+void	get_textures(t_game *game)
+{
+	load_texture(game, &game->no, game->e->no_tx);
+	load_texture(game, &game->so, game->e->so_tx);
+	load_texture(game, &game->ea, game->e->ea_tx);
+	load_texture(game, &game->we, game->e->we_tx);
+}

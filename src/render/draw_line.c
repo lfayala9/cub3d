@@ -56,8 +56,7 @@ void	draw_slice(t_game *game, t_ray_data *r, int x)
 	rgb_c = get_rgb(game->e->c_rgb, game);
 	game->color = parse_rgb(rgb_c);
 	draw_vertical_line(game, x, 0, r->draw_start - 1);
-	game->color = 0x00FF00;
-	draw_vertical_line(game, x, r->draw_start, r->draw_end);
+	draw_texture(game, x, r);
 	rgb_f = get_rgb(game->e->f_rgb, game);
 	game->color = parse_rgb(rgb_f);
 	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
