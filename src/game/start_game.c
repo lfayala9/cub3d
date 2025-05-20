@@ -6,96 +6,100 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:51:33 by aurodrig          #+#    #+#             */
-/*   Updated: 2025/05/06 10:45:05 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:45:47 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
+#include <stdio.h>
 
-int	game_loop(t_game *game)
+int game_loop(t_game *game)
 {
-	handle_input(game);
-	raycast(game);
-	return (0);
+
+    handle_input(game);
+    raycast(game);
+    mlx_put_image_to_window(game->mlx_ptr,game->mlx_win,game->img,0, 0);
+    return (0);
 }
 
-void	free_game(t_game *g)
+void free_game(t_game *g)
 {
-	int	i;
+    int    i;
 
-	i = 0;
-	free(g->e->ea_tx);
-	free(g->e->we_tx);
-	free(g->e->so_tx);
-	free(g->e->no_tx);
-	free(g->e->c_rgb);
-	free(g->e->f_rgb);
-	free(g->e);
-	while (i < 6)
-	{
-		free(g->elements[i]);
-		i++;
-	}
-	i = 0;
-	while (g->map[i])
-		free(g->map[i++]);
-	free(g->map);
-	free(g->elements);
-	free(g);
+    i = 0;
+    free(g->e->ea_tx);
+    free(g->e->we_tx);
+    free(g->e->so_tx);
+    free(g->e->no_tx);
+    free(g->e->c_rgb);
+    free(g->e->f_rgb);
+    free(g->e);
+    while (i < 6)
+        free(g->elements[i++]);
+    i = 0;
+    while (g->map[i])
+        free(g->map[i++]);
+    free(g->map);
+    free(g->elements);
+    free(g);
 }
 
-int	exit_game(t_game *game)
+int exit_game(t_game *game)
 {
-	mlx_destroy_image(game->mlx_ptr, game->no.img);
-	mlx_destroy_image(game->mlx_ptr, game->ea.img);
-	mlx_destroy_image(game->mlx_ptr, game->so.img);	
-	mlx_destroy_image(game->mlx_ptr, game->we.img);	
-	mlx_destroy_window(game->mlx_ptr, game->mlx_win);
-	mlx_destroy_display(game->mlx_ptr);
-	free(game->mlx_ptr);
-	free_game(game);
-	exit(EXIT_SUCCESS);
+    mlx_destroy_image(game->mlx_ptr, game->no.img);
+    mlx_destroy_image(game->mlx_ptr, game->ea.img);
+    mlx_destroy_image(game->mlx_ptr, game->so.img);    
+    mlx_destroy_image(game->mlx_ptr, game->we.img);    
+    mlx_destroy_window(game->mlx_ptr, game->mlx_win);
+    mlx_destroy_display(game->mlx_ptr);
+    free(game->mlx_ptr);
+    free_game(game);
+    exit(EXIT_SUCCESS);
 }
 
-int	load_texture(t_game *game, t_texture *tx, char *path)
+int load_texture(t_game *game, t_texture *tx, char *path)
 {
-	tx->img = mlx_xpm_file_to_image(game->mlx_ptr, path, \
-									&tx->width, &tx->heigth);
-	if (!tx->img)
-	{
-		free(game->mlx_ptr);
-		return (1);
-	}
-	tx->addr = mlx_get_data_addr(tx->img, &tx->bpp, \
-								&tx->size_line, &tx->endian);
-	return (0);
+    tx->img = mlx_xpm_file_to_image(game->mlx_ptr, path,
+                                    &tx->width, &tx->heigth);
+    if (!tx->img)
+    {
+        free(game->mlx_ptr);
+        return (1);
+    }
+    tx->addr = mlx_get_data_addr(tx->img, &tx->bpp,
+                                 &tx->size_line, &tx->endian);
+    return (0);
 }
 
-void	start_game(t_game *game)
+void start_game(t_game *game)
 {
-	char	**f_rgb;
-	char	**c_rgb;
+    char    **f_rgb;
+    char    **c_rgb;
 
-	f_rgb = get_rgb(game->e->f_rgb, game);
-	check_rgb(f_rgb, game);
-	free_rgb(f_rgb);
-	c_rgb = get_rgb(game->e->c_rgb, game);
-	check_rgb(c_rgb, game);
-	free_rgb(c_rgb);
-	get_position(game);
-	game->win_width = WIN_WIDTH;
-	game->win_height = WIN_HEIGHT;
-	game->mlx_ptr = mlx_init();
-	if (!game->mlx_ptr)
-		exit(1);
-	get_textures(game);
-	game->mlx_win = mlx_new_window(game->mlx_ptr, game->win_width, \
-	game->win_height, "cub3D");
-	if (!game->mlx_win)
-		exit(1);
-	mlx_hook(game->mlx_win, 2, 1L << 0, handle_key_press, game);
-	mlx_hook(game->mlx_win, 3, 1L << 1, handle_key_release, game);
-	mlx_hook(game->mlx_win, 17, 1L << 2, exit_game, game);
-	mlx_loop_hook(game->mlx_ptr, game_loop, game);
-	mlx_loop(game->mlx_ptr);
+    f_rgb = get_rgb(game->e->f_rgb, game);
+    check_rgb(f_rgb, game);
+    free_rgb(f_rgb);
+    c_rgb = get_rgb(game->e->c_rgb, game);
+    check_rgb(c_rgb, game);
+    free_rgb(c_rgb);
+    get_position(game);
+    game->win_width  = WIN_WIDTH;
+    game->win_height = WIN_HEIGHT;
+    game->mlx_ptr    = mlx_init();
+    if (!game->mlx_ptr)
+        exit(1);
+    get_textures(game);
+    game->mlx_win = mlx_new_window(game->mlx_ptr,game->win_width,
+									game->win_height,"cub3D");
+    if (!game->mlx_win)
+        exit(1);
+    game->img = mlx_new_image(game->mlx_ptr,game->win_width,game->win_height);
+    game->img_data = mlx_get_data_addr(game->img,&game->bpp,&game->size_line,
+                                       &game->endian);
+    mlx_hook(game->mlx_win, 2, 1L << 0, handle_key_press, game);
+    mlx_hook(game->mlx_win, 3, 1L << 1, handle_key_release, game);
+    mlx_hook(game->mlx_win, 17, 1L << 2, exit_game, game);
+    mlx_loop_hook(game->mlx_ptr, game_loop, game);
+    mlx_loop(game->mlx_ptr);
 }
+

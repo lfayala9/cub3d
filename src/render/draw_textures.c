@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: layala-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:44:58 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/19 18:57:14 by layala-s         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:23:49 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	draw_texture(t_game *g, int x, t_ray_data *r)
 		d.tx_pos += d.step;
 		d.color = *(int *)(tx->addr + (d.tx_y * tx->size_line + d.tx_x * \
 						(tx->bpp / 8)));
-		mlx_pixel_put(g->mlx_ptr, g->mlx_win, x, d.y, d.color);
+		//mlx_pixel_put(g->mlx_ptr, g->mlx_win, x, d.y, d.color);
+		put_pixel(g, x, d.y, d.color);
 		d.y++;
 	}
 }

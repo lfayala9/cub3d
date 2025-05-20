@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 16:52:12 by aurodrig          #+#    #+#             */
-/*   Updated: 2025/04/20 16:53:08 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:46:23 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_ray(t_game *game, t_ray_data *r, int x)
 	r->map_y = (int)game->player_y;
 }
 
-// Pinta una línea vertical en x desde y0 a y1 de un solo color
 void	draw_vertical_line(t_game *game, int x, int y0, int y1)
 {
 	int	y;
@@ -33,7 +32,8 @@ void	draw_vertical_line(t_game *game, int x, int y0, int y1)
 	y = y0;
 	while (y <= y1)
 	{
-		mlx_pixel_put(game->mlx_ptr, game->mlx_win, x, y, game->color);
+		//mlx_pixel_put(game->mlx_ptr, game->mlx_win, x, y, game->color);
+		put_pixel(game, x, y, game->color);
 		y++;
 	}
 }

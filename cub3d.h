@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:32 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/19 19:21:34 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:42:43 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define KEY_RIGHT 65363
 # define KEY_LEFT 65361
 # define MAX_KEYS 70000
-# define WIN_WIDTH 940
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define C_R 0.3
 
 /*STRUCTS*/
@@ -140,7 +140,6 @@ void	draw_vertical_line(t_game *game, int x, int y0, int y1);
 void	init_elements(char **str, char *element, int n, t_game *g);
 int		check_edges(char **map);
 int		exit_game(t_game *game);
-int		draw_frame(t_game *game);
 int		parse_rgb(char **rgb);
 int		check_first_last(char **map);
 int		check_first_last(char **map);
@@ -156,5 +155,7 @@ double	ft_abs(double x);
 char	**get_rgb(char *color, t_game *g);
 t_game	*init_struct(t_game *game);
 int		ft_is_walkable(char **map, double x, double y);
+void    put_pixel(t_game *game, int x, int y, int color);
+
 
 #endif
