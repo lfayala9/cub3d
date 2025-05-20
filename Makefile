@@ -16,7 +16,8 @@ src/render/draw_textures.c \
 src/render/raycast.c \
 src/render/draw_line.c \
 src/game/start_game.c \
-src/game/handle_input.c
+src/game/handle_input.c \
+src/game/minimap.c
 
 OBJS = $(SRCS:.c=.o)
 

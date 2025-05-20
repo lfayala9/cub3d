@@ -6,7 +6,7 @@
 /*   By: aurodrig <aurodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:57:24 by layala-s          #+#    #+#             */
-/*   Updated: 2025/05/20 23:46:36 by aurodrig         ###   ########.fr       */
+/*   Updated: 2025/05/21 00:27:35 by aurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,12 @@ void	get_textures(t_game *game)
 		free(game->mlx_ptr);
 		exit_error("Error: can't find texture", 1, game);
 	}
-	if  (load_texture(game, &game->ea, game->e->ea_tx) != 0)
+	if (load_texture(game, &game->ea, game->e->ea_tx) != 0)
 	{
 		mlx_destroy_image(game->mlx_ptr, game->no.img);
 		mlx_destroy_image(game->mlx_ptr, game->so.img);
 		mlx_destroy_display(game->mlx_ptr);
-		exit_error("Error: can't find texture", 1, game);		
+		exit_error("Error: can't find texture", 1, game);
 	}
 	if (load_texture(game, &game->we, game->e->we_tx) != 0)
 	{
@@ -134,26 +134,6 @@ void	get_textures(t_game *game)
 		mlx_destroy_image(game->mlx_ptr, game->ea.img);
 		mlx_destroy_image(game->mlx_ptr, game->so.img);
 		mlx_destroy_display(game->mlx_ptr);
-		exit_error("Error: can't find texture", 1, game);	
+		exit_error("Error: can't find texture", 1, game);
 	}
 }
-
-
-
-void put_pixel(t_game *game, int x, int y, int color)
-{
-    static int once = 1;
-    if (once) {
-        once = 0;
-    }
-
-    if (x < 0 || x >= game->win_width
-     || y < 0 || y >= game->win_height)
-        return;
-
-    char *dst = game->img_data
-              + y * game->size_line
-              + x * (game->bpp / 8);
-    *(unsigned int*)dst = (unsigned int)color;
-}
-
