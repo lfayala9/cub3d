@@ -34,3 +34,16 @@ void	put_pixel(t_game *game, int x, int y, int color)
 	dst = game->img_data + y * game->size_line + x * (game->bpp / 8);
 	*(unsigned int *)dst = (unsigned int)color;
 }
+
+void	validate_rgb(t_game *game)
+{
+	char	**f_rgb;
+	char	**c_rgb;
+
+	f_rgb = get_rgb(game->e->f_rgb, game);
+	check_rgb(f_rgb, game);
+	free_rgb(f_rgb);
+	c_rgb = get_rgb(game->e->c_rgb, game);
+	check_rgb(c_rgb, game);
+	free_rgb(c_rgb);
+}

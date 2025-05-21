@@ -48,6 +48,8 @@ int	main(int ac, char **av)
 	if (!game)
 		return (1);
 	temp = copy_file(av[1]);
+	if (!temp)
+		exit_error("Error: Can't find .cub file", 0, game);
 	get_map(game, temp);
 	parse_data(game, temp);
 	validate_map(game);

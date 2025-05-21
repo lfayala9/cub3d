@@ -49,6 +49,7 @@ int	exit_game(t_game *game)
 	mlx_destroy_image(game->mlx_ptr, game->ea.img);
 	mlx_destroy_image(game->mlx_ptr, game->so.img);
 	mlx_destroy_image(game->mlx_ptr, game->we.img);
+	mlx_destroy_image(game->mlx_ptr, game->img);
 	mlx_destroy_window(game->mlx_ptr, game->mlx_win);
 	mlx_destroy_display(game->mlx_ptr);
 	free(game->mlx_ptr);
@@ -61,10 +62,7 @@ int	load_texture(t_game *game, t_texture *tx, char *path)
 	tx->img = mlx_xpm_file_to_image(game->mlx_ptr, path, \
 		&tx->width, &tx->heigth);
 	if (!tx->img)
-	{
-		free(game->mlx_ptr);
 		return (1);
-	}
 	tx->addr = mlx_get_data_addr(tx->img, &tx->bpp, \
 		&tx->size_line, &tx->endian);
 	return (0);
@@ -72,22 +70,19 @@ int	load_texture(t_game *game, t_texture *tx, char *path)
 
 void	start_game(t_game *game)
 {
-	char	**f_rgb;
-	char	**c_rgb;
-
-	f_rgb = get_rgb(game->e->f_rgb, game);
-	check_rgb(f_rgb, game);
-	free_rgb(f_rgb);
-	c_rgb = get_rgb(game->e->c_rgb, game);
-	check_rgb(c_rgb, game);
-	free_rgb(c_rgb);
+	validate_rgb(game);
 	get_position(game);
 	game->win_width = WIN_WIDTH;
 	game->win_height = WIN_HEIGHT;
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
 		exit(1);
-	get_textures(game);
+	if (get_textures(game))
+	{
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+		exit_error("Error: can't find texture", 1, game);
+	}
 	game->mlx_win = mlx_new_window(game->mlx_ptr, game->win_width, \
 		game->win_height, "cub3D");
 	if (!game->mlx_win)

@@ -107,33 +107,27 @@ void	exit_error(char *msg, int code_free, t_game *g)
 	exit(EXIT_FAILURE);
 }
 
-void	get_textures(t_game *game)
+int	get_textures(t_game *game)
 {
 	if (load_texture(game, &game->no, game->e->no_tx) != 0)
-	{
-		mlx_destroy_display(game->mlx_ptr);
-		exit_error("Error: can't find texture", 1, game);
-	}
+		return (1);
 	if (load_texture(game, &game->so, game->e->so_tx) != 0)
 	{
 		mlx_destroy_image(game->mlx_ptr, game->no.img);
-		mlx_destroy_display(game->mlx_ptr);
-		free(game->mlx_ptr);
-		exit_error("Error: can't find texture", 1, game);
+		return (1);
 	}
 	if (load_texture(game, &game->ea, game->e->ea_tx) != 0)
 	{
 		mlx_destroy_image(game->mlx_ptr, game->no.img);
 		mlx_destroy_image(game->mlx_ptr, game->so.img);
-		mlx_destroy_display(game->mlx_ptr);
-		exit_error("Error: can't find texture", 1, game);
+		return (1);
 	}
 	if (load_texture(game, &game->we, game->e->we_tx) != 0)
 	{
 		mlx_destroy_image(game->mlx_ptr, game->no.img);
 		mlx_destroy_image(game->mlx_ptr, game->ea.img);
 		mlx_destroy_image(game->mlx_ptr, game->so.img);
-		mlx_destroy_display(game->mlx_ptr);
-		exit_error("Error: can't find texture", 1, game);
+		return (1);
 	}
+	return (0);
 }
