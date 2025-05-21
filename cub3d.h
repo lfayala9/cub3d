@@ -32,7 +32,6 @@
 # define C_R 0.3
 # define MINIMAP_SCALE 15
 
-
 /*STRUCTS*/
 
 typedef struct s_element
@@ -158,7 +157,8 @@ double	ft_abs(double x);
 char	**get_rgb(char *color, t_game *g);
 t_game	*init_struct(t_game *game);
 int		ft_is_walkable(char **map, double x, double y);
-void    put_pixel(t_game *game, int x, int y, int color);
-void 	draw_minimap(t_game *game);
+void	safe_free(t_game *g);
+void	put_pixel(t_game *game, int x, int y, int color);
+void	draw_minimap(t_game *game);
 
 #endif

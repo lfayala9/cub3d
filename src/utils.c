@@ -61,7 +61,7 @@ t_game	*init_struct(t_game *game)
 	game->e = malloc(sizeof(t_element));
 	if (!game->e)
 		return (NULL);
-	game->elements = malloc(sizeof(char *) * 6);
+	game->elements = malloc(sizeof(char *) * 7);
 	while (i < 6)
 		game->elements[i++] = 0;
 	game->e->ea_tx = NULL;
@@ -81,27 +81,16 @@ t_game	*init_struct(t_game *game)
 
 void	exit_error(char *msg, int code_free, t_game *g)
 {
-	int	i;
-	int	j;
-
-	i = 0;
 	printf("%s\n", msg);
 	if (code_free == 1)
 	{
-		j = 0;
-		while (g->map[j])
-			free(g->map[j++]);
-		free(g->map);
-		free(g->e->ea_tx);
-		free(g->e->we_tx);
-		free(g->e->so_tx);
-		free(g->e->no_tx);
-		free(g->e->c_rgb);
-		free(g->e->f_rgb);
-		free(g->e);
-		while (i < 6)
-			free(g->elements[i++]);
-		free(g->elements);
+		safe_free(g);
+		if (g->map)
+			free(g->map);
+		if (g->e)
+			free(g->e);
+		if (g->elements)
+			free(g->elements);
 		free(g);
 	}
 	exit(EXIT_FAILURE);

@@ -48,7 +48,6 @@ void	draw_texture(t_game *g, int x, t_ray_data *r)
 		d.tx_pos += d.step;
 		d.color = *(int *)(tx->addr + (d.tx_y * tx->size_line + d.tx_x * \
 						(tx->bpp / 8)));
-		//mlx_pixel_put(g->mlx_ptr, g->mlx_win, x, d.y, d.color);
 		put_pixel(g, x, d.y, d.color);
 		d.y++;
 	}
