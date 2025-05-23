@@ -33,7 +33,7 @@ char	*clean_str(char *str)
 	return (clean);
 }
 
-char	**get_rgb(char *color, t_game *g)
+char	**get_rgb(char *color)
 {
 	char	**raw_rgb;
 	char	**clean_rgb;

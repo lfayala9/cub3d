@@ -59,18 +59,19 @@ void	handle_input(t_game *g)
 		rotate(g, rot_speed);
 }
 
-int	handle_key_press(int keycode, t_game *game)
+int	handle_mouse_move(int x, int y, t_game *game)
 {
-	if (keycode >= 0 && keycode < MAX_KEYS)
-		game->keys[keycode] = 1;
-	if (keycode == XK_Escape)
-		exit_game(game);
-	return (0);
-}
+	static int	prev_x = -1;
+	double		sensitivity;
+	int			dx;
 
-int	handle_key_release(int keycode, t_game *game)
-{
-	if (keycode >= 0 && keycode < MAX_KEYS)
-		game->keys[keycode] = 0;
+	sensitivity = 0.003;
+	if (prev_x == -1)
+		prev_x = x;
+	dx = x - prev_x;
+	if (dx != 0 && ft_abs(dx) < 100)
+		rotate(game, dx * sensitivity);
+	prev_x = x;
+	(void)y;
 	return (0);
 }

@@ -16,7 +16,9 @@ src/render/draw_textures.c \
 src/render/raycast.c \
 src/render/draw_line.c \
 src/game/start_game.c \
-src/game/handle_input.c
+src/game/handle_input.c \
+src/game/input_utils.c \
+src/game/minimap.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -30,6 +32,9 @@ $(NAME): $(OBJS)
 	@make -C libft
 	@make -C minilibx-linux
 	$(CC) $(FLAGS) $(OBJS) $(INCLUDES) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	@make clean -C libft

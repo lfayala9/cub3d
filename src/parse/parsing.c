@@ -14,7 +14,7 @@
 
 void	copy_str(char *dest, char*src, int n)
 {
-	if (n >= ft_strlen(src))
+	if (n >= (int)ft_strlen(src))
 		dest[0] = '\0';
 	else
 		ft_strcpy(dest, src + n);
