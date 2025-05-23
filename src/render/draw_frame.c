@@ -40,10 +40,10 @@ void	validate_rgb(t_game *game)
 	char	**f_rgb;
 	char	**c_rgb;
 
-	f_rgb = get_rgb(game->e->f_rgb, game);
+	f_rgb = get_rgb(game->e->f_rgb);
 	check_rgb(f_rgb, game);
 	free_rgb(f_rgb);
-	c_rgb = get_rgb(game->e->c_rgb, game);
+	c_rgb = get_rgb(game->e->c_rgb);
 	check_rgb(c_rgb, game);
 	free_rgb(c_rgb);
 }

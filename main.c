@@ -12,33 +12,47 @@
 
 #include "cub3d.h"
 
-void	safe_free(t_game *g)
+t_game	*alloc_strcuts(void)
 {
-	int	i;
+	t_game	*game;
+	int		i;
 
-	if (!g)
-		return ;
-	if (g->map)
-	{
-		i = 0;
-		while (g->map[i])
-			free(g->map[i++]);
-	}
-	if (g->e)
-	{
-		free(g->e->ea_tx);
-		free(g->e->we_tx);
-		free(g->e->so_tx);
-		free(g->e->no_tx);
-		free(g->e->c_rgb);
-		free(g->e->f_rgb);
-	}
-	if (g->elements)
-	{
-		i = 0;
-		while (i < 6)
-			free(g->elements[i++]);
-	}
+	i = 0;
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (NULL);
+	game->e = malloc(sizeof(t_element));
+	if (!game->e)
+		return (NULL);
+	game->elements = malloc(sizeof(char *) * 7);
+	while (i < 6)
+		game->elements[i++] = 0;
+	game->mini = malloc(sizeof(t_minimap));
+	if (!game->mini)
+		return (NULL);
+	return (game);
+}
+
+t_game	*init_struct(void)
+{
+	t_game	*game;
+
+	game = alloc_strcuts();
+	if (!game)
+		return (NULL);
+	game->e->ea_tx = NULL;
+	game->e->we_tx = NULL;
+	game->e->so_tx = NULL;
+	game->e->no_tx = NULL;
+	game->e->c_rgb = NULL;
+	game->e->f_rgb = NULL;
+	game->p_count = 0;
+	game->player_x = 0.5;
+	game->player_y = 0.5;
+	game->dir_x = 0;
+	game->dir_y = -1;
+	game->plane_x = 0.66;
+	return (game->plane_y = 0, game);
 }
 
 char	**copy_file(const char *filename)
@@ -72,13 +86,14 @@ int	main(int ac, char **av)
 	char	**temp;
 	int		i;
 
+	game = NULL;
 	if (check_input(ac, av) != 0)
 		exit(EXIT_FAILURE);
-	game = init_struct(game);
+	game = init_struct();
 	if (!game)
 		return (1);
 	i = 0;
-	while (game->keys[i] < MAX_KEYS)
+	while (i < MAX_KEYS)
 		game->keys[i++] = 0;
 	temp = copy_file(av[1]);
 	if (!temp)

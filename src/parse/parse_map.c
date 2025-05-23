@@ -36,7 +36,7 @@ int	get_limits(char **map, int x, int y)
 {
 	if ((map[x][y] == ' ' || map[x][y] == '\t'))
 	{
-		if (y > 0 && y + 1 < ft_strlen(map[x]) && x > 0 && map[x + 1])
+		if (y > 0 && y + 1 < (int)ft_strlen(map[x]) && x > 0 && map[x + 1])
 		{
 			if ((map[x][y - 1] != ' ' && map[x][y - 1] != '\t' \
 				&& map[x][y - 1] != '1') || \

@@ -39,6 +39,7 @@ void	free_game(t_game *g)
 	while (g->map[i])
 		free(g->map[i++]);
 	free(g->map);
+	free(g->mini);
 	free(g->elements);
 	free(g);
 }
@@ -90,9 +91,7 @@ void	start_game(t_game *game)
 	game->img = mlx_new_image(game->mlx_ptr, game->win_width, game->win_height);
 	game->img_data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, \
 		&game->endian);
-	mlx_hook(game->mlx_win, 2, 1L << 0, handle_key_press, game);
-	mlx_hook(game->mlx_win, 3, 1L << 1, handle_key_release, game);
-	mlx_hook(game->mlx_win, 17, 1L << 2, exit_game, game);
+	key_hooks(game);
 	mlx_loop_hook(game->mlx_ptr, game_loop, game);
 	mlx_loop(game->mlx_ptr);
 }

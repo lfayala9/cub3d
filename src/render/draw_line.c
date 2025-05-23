@@ -52,11 +52,11 @@ void	draw_slice(t_game *game, t_ray_data *r, int x)
 	char	**rgb_c;
 	char	**rgb_f;
 
-	rgb_c = get_rgb(game->e->c_rgb, game);
+	rgb_c = get_rgb(game->e->c_rgb);
 	game->color = parse_rgb(rgb_c);
 	draw_vertical_line(game, x, 0, r->draw_start - 1);
 	draw_texture(game, x, r);
-	rgb_f = get_rgb(game->e->f_rgb, game);
+	rgb_f = get_rgb(game->e->f_rgb);
 	game->color = parse_rgb(rgb_f);
 	draw_vertical_line(game, x, r->draw_end + 1, game->win_height - 1);
 	free_rgb(rgb_c);
